@@ -23,34 +23,48 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
+        <span class="mr-2">Login</span>
+      </v-btn>
+      <v-btn v-if="!currentUser" @click="$router.push('/register')" text>
+        <span class="mr-2">Register</span>
+      </v-btn>
+      <v-btn v-if="currentUser" @click="logout" text>
+        <span class="mr-2">Logout</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
-      <HelloWorld />
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import firebase from "./firebase";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
 
-  components: {
-    HelloWorld
+  data() {
+    return {};
   },
-
-  data: () => ({
-    //
-  })
+  methods: {
+    async logout() {
+      try {
+        await firebase.auth.signOut();
+      } catch (error) {
+        console.error(error);
+      }
+      this.$store.commit("setCurrentUser", null);
+      this.$store.commit("setUserProfile", null);
+      this.$router.push("/login");
+    }
+  },
+  computed: {
+    ...mapState(["currentUser"])
+  }
 };
 </script>
