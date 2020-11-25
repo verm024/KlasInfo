@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Guru from "../views/Dashboard/Guru";
+import CreateClass from "../views/CreateClass";
 import Ortu from "../views/Dashboard/Ortu";
 import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
@@ -27,6 +28,16 @@ const routes = [
       requiresLogin: true,
       allowedRole: "guru",
       title: "Dashboard"
+    }
+  },
+  {
+    path: "/create-class",
+    name: "Create Class",
+    component: CreateClass,
+    meta: {
+      requiresLogin: true,
+      allowedRole: "guru",
+      title: "Create New Class"
     }
   },
   {
