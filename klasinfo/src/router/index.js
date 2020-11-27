@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Guru from "../views/Dashboard/Guru";
 import CreateClass from "../views/CreateClass";
+import DetailClass from "../views/DetailClass";
 import Ortu from "../views/Dashboard/Ortu";
 import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
@@ -28,6 +29,16 @@ const routes = [
       requiresLogin: true,
       allowedRole: "guru",
       title: "Dashboard"
+    }
+  },
+  {
+    path: "/class/:id",
+    name: "Detail Class",
+    component: DetailClass,
+    meta: {
+      requiresLogin: true,
+      allowedRole: "guru",
+      title: "Detail Class"
     }
   },
   {
