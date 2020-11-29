@@ -5,6 +5,7 @@ import Guru from "../views/Dashboard/Guru";
 import CreateClass from "../views/CreateClass";
 import DetailClass from "../views/DetailClass";
 import Ortu from "../views/Dashboard/Ortu";
+import CreateChild from "../views/CreateChild";
 import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
 import firebase from "../firebase";
@@ -59,6 +60,16 @@ const routes = [
       requiresLogin: true,
       allowedRole: "ortu",
       title: "Dashboard"
+    }
+  },
+  {
+    path: "/create-child",
+    name: "Create Child",
+    component: CreateChild,
+    meta: {
+      requiresLogin: true,
+      allowedRole: "ortu",
+      title: "Create New Child"
     }
   },
   {
