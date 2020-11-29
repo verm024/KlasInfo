@@ -37,6 +37,7 @@ export default {
         user = user.user;
         this.$store.commit("setCurrentUser", user);
         await this.$store.dispatch("fetchUserProfile");
+        await this.$store.dispatch("fetchCurrentAnak");
         this.$router.push("/" + this.$store.state.userProfile.role);
       }
     }

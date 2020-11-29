@@ -16,10 +16,12 @@ firebase.auth.onState;
 firebase.auth.onAuthStateChanged(async user => {
   if (user) {
     store.commit("setCurrentUser", user);
-    store.dispatch("fetchUserProfile");
+    await store.dispatch("fetchUserProfile");
+    await store.dispatch("fetchCurrentAnak");
   } else {
     store.commit("setCurrentUser", null);
     store.commit("setUserProfile", null);
+    store.commit("setCurrentAnak", null);
   }
   if (!app) {
     app = new Vue({

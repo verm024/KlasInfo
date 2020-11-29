@@ -32,6 +32,7 @@ export default {
           .doc(this.currentUser.uid)
           .collection("anak")
           .add(this.form_anak);
+        await this.$store.dispatch("fetchCurrentAnak");
         this.$router.push("/ortu");
       } catch (error) {
         console.error(error);

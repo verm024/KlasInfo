@@ -60,6 +60,7 @@ export default {
       }
       this.$store.commit("setCurrentUser", null);
       this.$store.commit("setUserProfile", null);
+      this.$store.commit("setCurrentAnak", null);
       this.$router.push("/login");
     }
   },

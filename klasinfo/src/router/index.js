@@ -100,7 +100,7 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   let currentUser = firebase.auth.currentUser;
   let requiresLogin = to.matched.some(x => x.meta.requiresLogin);
   if (to.name == "Unavailable") {
@@ -113,7 +113,28 @@ router.beforeEach((to, from, next) => {
     if (currentUser) {
       if (requiresLogin) {
         if (to.meta.allowedRole.includes(store.state.userProfile.role)) {
-          next();
+          if (
+            store.state.userProfile.role == "ortu" &&
+            to.name != "Create Child"
+          ) {
+            try {
+              let doc = await firebase.db
+                .collection("users")
+                .doc(store.state.currentUser.uid)
+                .collection("anak")
+                .get();
+              if (doc.empty) {
+                next("/create-child");
+              } else {
+                next();
+              }
+            } catch (error) {
+              console.error(error);
+              next("/" + store.state.userProfile.role);
+            }
+          } else {
+            next();
+          }
         } else {
           next("/" + store.state.userProfile.role); //To user dashboard
         }

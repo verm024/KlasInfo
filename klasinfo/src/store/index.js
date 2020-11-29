@@ -8,7 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     currentUser: null,
-    userProfile: null
+    userProfile: null,
+    currentAnak: null
   },
   mutations: {
     setCurrentUser(state, val) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     setUserProfile(state, val) {
       state.userProfile = val;
+    },
+    setCurrentAnak(state, val) {
+      state.currentAnak = val;
     }
   },
   actions: {
@@ -26,6 +30,20 @@ export default new Vuex.Store({
         .get();
       let data = tempUserProfile.data();
       commit("setUserProfile", data);
+    },
+    async fetchCurrentAnak({ commit, state }) {
+      if (state.userProfile.role == "ortu") {
+        if (state.currentAnak == null) {
+          let doc = await firebase.db
+            .collection("users")
+            .doc(state.currentUser.uid)
+            .collection("anak")
+            .get();
+          if (!doc.empty) {
+            commit("setCurrentAnak", doc.docs[0].data());
+          }
+        }
+      }
     }
   },
   modules: {},
