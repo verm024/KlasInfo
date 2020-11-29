@@ -4,6 +4,7 @@
     guru)
     <br />
     Nama kelas: {{ data_kelas.nama }}
+    <SettingClass :data_kelas="data_kelas" />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import firebase from "@/firebase";
 import store from "@/store";
 import { mapState } from "vuex";
+import SettingClass from "@/components/SettingClass";
 
 export default {
   data() {
@@ -28,6 +30,9 @@ export default {
         );
       }
     }
+  },
+  components: {
+    SettingClass
   },
   async beforeRouteEnter(to, from, next) {
     let doc = await firebase.db

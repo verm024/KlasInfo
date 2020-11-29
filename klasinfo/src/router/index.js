@@ -32,16 +32,6 @@ const routes = [
     }
   },
   {
-    path: "/class/:id",
-    name: "Detail Class",
-    component: DetailClass,
-    meta: {
-      requiresLogin: true,
-      allowedRole: "guru",
-      title: "Detail Class"
-    }
-  },
-  {
     path: "/create-class",
     name: "Create Class",
     component: CreateClass,
@@ -49,6 +39,16 @@ const routes = [
       requiresLogin: true,
       allowedRole: "guru",
       title: "Create New Class"
+    }
+  },
+  {
+    path: "/class/:id",
+    name: "Detail Class",
+    component: DetailClass,
+    meta: {
+      requiresLogin: true,
+      allowedRole: "guru",
+      title: "Detail Class"
     }
   },
   {

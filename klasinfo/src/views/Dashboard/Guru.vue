@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import firebase from "../../firebase";
+import firebase from "@/firebase";
 import { mapState } from "vuex";
 
 export default {
