@@ -122,6 +122,7 @@ router.beforeEach(async (to, from, next) => {
                 .collection("users")
                 .doc(store.state.currentUser.uid)
                 .collection("anak")
+                .orderBy("tanggal_dibuat")
                 .get();
               if (doc.empty) {
                 next("/create-child");

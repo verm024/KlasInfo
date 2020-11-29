@@ -38,9 +38,14 @@ export default new Vuex.Store({
             .collection("users")
             .doc(state.currentUser.uid)
             .collection("anak")
+            .orderBy("tanggal_dibuat")
             .get();
           if (!doc.empty) {
-            commit("setCurrentAnak", doc.docs[0].data());
+            let anak = {
+              ...doc.docs[0].data(),
+              id: doc.docs[0].id
+            };
+            commit("setCurrentAnak", anak);
           }
         }
       }

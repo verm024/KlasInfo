@@ -31,7 +31,7 @@ export default {
           .collection("users")
           .doc(this.currentUser.uid)
           .collection("anak")
-          .add(this.form_anak);
+          .add({ ...this.form_anak, tanggal_dibuat: firebase.timestamp });
         await this.$store.dispatch("fetchCurrentAnak");
         this.$router.push("/ortu");
       } catch (error) {

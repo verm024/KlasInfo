@@ -18,9 +18,11 @@ firebase.initializeApp(config);
 let db = firebase.firestore();
 let auth = firebase.auth();
 let storage = firebase.storage();
+let timestamp = firebase.firestore.Timestamp.now();
 
 export default {
   db,
   auth,
-  storage
+  storage,
+  timestamp
 };
