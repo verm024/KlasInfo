@@ -6,6 +6,7 @@
     Nama kelas: {{ data_kelas.nama }}
     <SettingClass :data_kelas="data_kelas" />
     <MemberClass />
+    <AssignmentClass />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import store from "@/store";
 import { mapState } from "vuex";
 import SettingClass from "@/components/SettingClass";
 import MemberClass from "@/components/MemberClass";
+import AssignmentClass from "@/components/AssignmentClass";
 
 export default {
   data() {
@@ -35,7 +37,8 @@ export default {
   },
   components: {
     SettingClass,
-    MemberClass
+    MemberClass,
+    AssignmentClass
   },
   async beforeRouteEnter(to, from, next) {
     let doc = await firebase.db

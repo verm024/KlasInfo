@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    Daftar Member:
     <div v-for="(item, index) in daftar_member" :key="index">
       {{ item.anak.nama }}
     </div>

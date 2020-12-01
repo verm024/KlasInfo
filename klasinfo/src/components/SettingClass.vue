@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    Form Setting kelas:
     <input type="text" v-model="edit_data_kelas.nama" />
     <input type="text" v-model="edit_data_kelas.deskripsi" />
     <input type="file" @change="handleChangeFile" />
