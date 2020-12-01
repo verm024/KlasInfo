@@ -44,7 +44,7 @@ export default {
     };
   },
   watch: {
-    get_daftar_member: {
+    get_daftar_tugas: {
       immediate: true,
       handler() {
         this.$bind(
