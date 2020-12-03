@@ -1,9 +1,42 @@
 <template>
   <div>
-    <input type="text" placeholder="Nama anak" v-model="form_anak.nama" />
-    <input type="text" placeholder="Nomor Induk" v-model="form_anak.nis" />
-    <input type="text" placeholder="Asal Sekolah" v-model="form_anak.sekolah" />
-    <button @click="createChild">Tambah</button>
+    <v-card class="mx-auto px-10 py-5 my-12" max-width="500" min-height="350">
+      <v-card-text>
+        <div class="title text-center mb-5">TAMBAH ANAK</div>
+        <v-form class="ma-40" ref="form" v-model="valid" lazy-validation>
+          <v-text-field
+            v-model="form_anak.nama"
+            label="Nama Anak"
+            type="text"
+            outlined
+          ></v-text-field>
+
+          <v-text-field
+            v-model="form_anak.nis"
+            label="Nomor Induk"
+            type="text"
+            outlined
+          ></v-text-field>
+          <v-text-field
+            v-model="form_anak.sekolah"
+            label="Asal Sekolah"
+            type="text"
+            outlined
+          ></v-text-field>
+
+          <div class="button text-center">
+            <v-btn
+              elevation="0"
+              class="mb-5 white--text"
+              color="#0EBEE4"
+              @click="createChild"
+            >
+              TAMBAH
+            </v-btn>
+          </div>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 

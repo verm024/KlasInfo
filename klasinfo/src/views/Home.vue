@@ -4,17 +4,15 @@
     <div class="titleDiv">
       <div class="upperTitle">
         <div class="judul">
-          
-          <span class="blueBoldTitle">Simple, Cheap</span> place to stay. Take
-          your time to <span class="blueTitle">explore & hang out</span>
+          <span class="blueBoldTitle">Solusi mudah</span> bagi Anda para orang tua. Tak ada lagi <span class="blueTitle">informasi kelas</span> yang terlewat.
         </div>
-        <div class="judul2">we can deliver even the most unusual ideas!</div>
+        <div class="judul2">Pengawasan kegiatan putra putri Anda di sekolah.</div>
       </div>
       <div class="lowerTitle">
         <div class="judulbawah">Discover best Homestay at Bali, Indonesia</div>
         <router-link to="/search">
           <v-btn large class="mt-5 white--text" color="#0EBEE4">
-            Find Homestay
+            Dashboard
           </v-btn>
         </router-link>
       </div>
@@ -62,7 +60,7 @@ export default {
 }
 .topImage {
   float: right;
-  width: 50px;
-  height: 50px
+  max-width: 50%;
+  height: auto;
 }
 </style>

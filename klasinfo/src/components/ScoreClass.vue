@@ -85,7 +85,9 @@ export default {
             .collection("tugas")
             .orderBy("deadline")
         ).then(() => {
-          this.current_tugas = this.daftar_tugas[0];
+          if (this.daftar_tugas.length > 0) {
+            this.current_tugas = this.daftar_tugas[0];
+          }
         });
       }
     }

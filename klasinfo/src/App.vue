@@ -27,6 +27,14 @@
           Home
         </v-btn>
       </router-link>
+      <router-link
+        v-if="currentUser && userProfile"
+        :to="'/' + userProfile.role"
+      >
+        <v-btn text>
+          Dashboard
+        </v-btn>
+      </router-link>
       <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
         <span class="mr-2">Login</span>
       </v-btn>
@@ -69,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["currentUser"])
+    ...mapState(["currentUser", "userProfile"])
   }
 };
 </script>

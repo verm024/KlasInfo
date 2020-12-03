@@ -1,6 +1,7 @@
 <template>
   <div>
     Detail Kelas buat ortu
+    <AssignmentClassOrtu />
   </div>
 </template>
 
@@ -9,9 +10,17 @@ import firebase from "@/firebase";
 import store from "@/store";
 import { mapState } from "vuex";
 
+import AssignmentClassOrtu from "../components/AssigntmentClassOrtu";
+
 export default {
   data() {
     return {};
+  },
+  components: {
+    AssignmentClassOrtu
+  },
+  computed: {
+    ...mapState(["currentUser", "userProfile"])
   },
   async beforeRouteEnter(to, from, next) {
     let doc = await firebase.db

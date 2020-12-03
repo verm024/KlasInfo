@@ -1,13 +1,23 @@
 <template>
-  <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat sint recusandae vitae error quaerat quasi tempore quae sequi quibusdam, enim perspiciatis, delectus, fuga nam? Exercitationem eaque placeat et nobis magni.
+  <div id="app">
+    <v-app id="inspire">
+      <v-navigation-drawer color="#09151E" permanent expand-on-hover app>
+        <v-divider></v-divider>
+        <v-list nav dense>
+          <v-list-item link href="#">
+            <v-list-item-icon>
+              <v-icon color="white" small>mdi-lightbulb</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="title">Blue</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+    </v-app>
   </div>
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style></style>

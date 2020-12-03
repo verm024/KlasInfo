@@ -1,8 +1,34 @@
 <template>
   <div class="ortu">
-    Dashboard ortu
-    <input type="text" v-model="code" />
-    <button @click="joinClass">Join class</button>
+    <div>Dashboard ortu</div>
+    <v-form class="mt-20" ref="form" lazy-validation>
+      <v-text-field
+      style="max-width: 200px"
+        v-model="code"
+        label="Kode Kelas"
+        type="text"
+        outlined
+      ></v-text-field>
+      <v-btn
+      class="white--text" color="#27496d" @click="joinClass">Join class</v-btn>
+    </v-form>
+    <div style="max-width: fit-content">
+      <div class="mt-10 d-inline-block" v-for="(item, index) in daftar_kelas" :key="index">
+        <v-card
+          class="mr-10"
+            @click="$router.push(`/ortu/class/${item.kelas.id}`)"
+            max-width="300px"
+          >
+            <v-img :src="item.kelas.foto" height="200px"></v-img>
+
+            <v-card-title>
+              {{ item.kelas.nama }}
+            </v-card-title>
+
+            <v-card-subtitle> Kode Kelas: {{ item.kelas.id }} </v-card-subtitle>
+          </v-card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,11 +40,31 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      code: ""
+      code: "",
+      daftar_kelas: []
     };
   },
   computed: {
     ...mapState(["currentAnak", "currentUser"])
+  },
+  watch: {
+    get_daftar_kelas: {
+      immediate: true,
+      handler() {
+        this.$bind(
+          "daftar_kelas",
+          firebase.db.collection("join").where(
+            "anak",
+            "==",
+            firebase.db
+              .collection("users")
+              .doc(this.currentUser.uid)
+              .collection("anak")
+              .doc(store.state.currentAnak.id)
+          )
+        );
+      }
+    }
   },
   methods: {
     async joinClass() {
@@ -27,18 +73,40 @@ export default {
           .collection("kelas")
           .doc(this.code)
           .get();
-        console.log(doc);
         if (doc.exists) {
-          let infoJoin = {
-            anak: firebase.db
-              .collection("users")
-              .doc(this.currentUser.uid)
-              .collection("anak")
-              .doc(this.currentAnak.id),
-            kelas: firebase.db.collection("kelas").doc(this.code),
-            tanggal_join: firebase.timestamp
-          };
-          await firebase.db.collection("join").add(infoJoin);
+          let doc2 = await firebase.db
+            .collection("join")
+            .where(
+              "kelas",
+              "==",
+              firebase.db.collection("kelas").doc(this.code)
+            )
+            .where(
+              "anak",
+              "==",
+              firebase.db
+                .collection("users")
+                .doc(this.currentUser.uid)
+                .collection("anak")
+                .doc(this.currentAnak.id)
+            )
+            .get();
+          if (doc2.docs.length > 0) {
+            alert("Anda sudah pernah join kelas tersebut");
+          } else {
+            let infoJoin = {
+              anak: firebase.db
+                .collection("users")
+                .doc(this.currentUser.uid)
+                .collection("anak")
+                .doc(this.currentAnak.id),
+              kelas: firebase.db.collection("kelas").doc(this.code),
+              tanggal_join: firebase.timestamp
+            };
+            await firebase.db.collection("join").add(infoJoin);
+            alert("Berhasil masuk kelas");
+            this.$router.push("/ortu/class/" + this.code);
+          }
         } else {
           alert("Kode kelas tidak ditemukan!");
         }

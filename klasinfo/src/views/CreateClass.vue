@@ -1,14 +1,28 @@
 <template>
   <div class="create-class">
-    Tambah kelas baru
-    <input type="text" placeholder="Nama Kelas" v-model="form_kelas.nama" />
-    <input
-      type="text"
-      placeholder="Deskripsi kelas"
-      v-model="form_kelas.deskripsi"
-    />
-    <input type="file" @change="handleChangeFile" />
-    <button @click="tambahKelas">Tambah Kelas</button>
+    <v-card>
+      <v-card-text>
+        <div class="title text-center mb-5">KELAS BARU</div>
+
+        <v-form class="ma-40" ref="form" lazy-validation>
+            <v-text-field
+            v-model="form_kelas.nama"
+            label="Nama Kelas"
+            type="text"
+            outlined
+          ></v-text-field>
+          <v-text-field
+            v-model="form_kelas.deskripsi"
+            label="Deskripsi Kelas"
+            type="text"
+            outlined
+          ></v-text-field>
+          Foto Kelas
+          <input type="file" @change="handleChangeFile" />
+          <v-btn @click="tambahKelas">Tambah Kelas</v-btn>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -29,9 +43,11 @@ export default {
   },
   methods: {
     async tambahKelas() {
+
       if (this.form_kelas.nama == "" || this.form_kelas.deskripsi == "") {
         alert("Input nama dan deskripsi tidak boleh kosong!");
       } else {
+        alert("Kelas berhasil dibuat!");
         let dataKelas = {
           guru: firebase.db.collection("users").doc(this.currentUser.uid),
           nama: this.form_kelas.nama,
