@@ -51,7 +51,8 @@ export default {
           guru: firebase.db.collection("users").doc(this.currentUser.uid),
           nama: this.form_kelas.nama,
           deskripsi: this.form_kelas.deskripsi,
-          tanggal_dibuat: firebase.timestamp
+          tanggal_dibuat: firebase.timestamp,
+          jadwal: []
         };
         try {
           let code = randomstring.generate({

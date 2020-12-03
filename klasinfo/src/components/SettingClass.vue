@@ -85,6 +85,7 @@ export default {
               jadwal: this.jadwal
             });
         } catch (error) {
+          alert("Gagal memperbarui data kelas");
           console.error(error);
         }
       }
@@ -111,6 +112,7 @@ export default {
           }
         }
       }
+      alert("Pembaruan data kelas berhasil");
     }
   }
 };

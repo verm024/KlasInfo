@@ -12,7 +12,7 @@
           Pengawasan kegiatan putra putri Anda di sekolah.
         </div>
       </div>
-      <div class="lowerTitle">
+      <!-- <div v-if="!(currentUser && userProfile)"  class="lowerTitle">
         <div class="judulbawah">
           Daftarkan diri Anda dan putra putri Anda sekarang
         </div>
@@ -21,7 +21,7 @@
             MASUK
           </v-btn>
         </router-link>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

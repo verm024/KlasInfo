@@ -60,47 +60,56 @@ export default {
   },
   methods: {
     async tambahTugas() {
-      let deadline = new Date(this.tugas_baru.deadline);
-      deadline.setHours(23, 59, 0, 0);
-      let dataTugas = {
-        ...this.tugas_baru,
-        deadline: deadline,
-        tanggal_ditambahkan: firebase.timestamp
-      };
-      try {
-        let doc = await firebase.db
-          .collection("kelas")
-          .doc(this.$route.params.id)
-          .collection("tugas")
-          .add(dataTugas);
-        if (doc.id) {
-          let ref = await firebase.storage
-            .ref()
-            .child(
-              "/tugas/" +
-                this.$route.params.id +
-                "/" +
-                doc.id +
-                "." +
-                this.dokumen.type.split("/")[1]
-            );
-          let task = await ref.put(this.dokumen);
-          let url = await task.ref.getDownloadURL();
-          if (url) {
-            try {
-              await firebase.db
-                .collection("kelas")
-                .doc(this.$route.params.id)
-                .collection("tugas")
-                .doc(doc.id)
-                .update({ dokumen: url });
-            } catch (error) {
-              console.error(error);
+      if (
+        this.tugas_baru.nama == "" ||
+        this.tugas_baru.deskripsi == "" ||
+        this.tugas_baru.deadline == "" ||
+        this.dokumen == ""
+      ) {
+        alert("Form tugas tidak boleh kosong");
+      } else {
+        let deadline = new Date(this.tugas_baru.deadline);
+        deadline.setHours(23, 59, 0, 0);
+        let dataTugas = {
+          ...this.tugas_baru,
+          deadline: deadline,
+          tanggal_ditambahkan: firebase.timestamp
+        };
+        try {
+          let doc = await firebase.db
+            .collection("kelas")
+            .doc(this.$route.params.id)
+            .collection("tugas")
+            .add(dataTugas);
+          if (doc.id) {
+            let ref = await firebase.storage
+              .ref()
+              .child(
+                "/tugas/" +
+                  this.$route.params.id +
+                  "/" +
+                  doc.id +
+                  "." +
+                  this.dokumen.type.split("/")[1]
+              );
+            let task = await ref.put(this.dokumen);
+            let url = await task.ref.getDownloadURL();
+            if (url) {
+              try {
+                await firebase.db
+                  .collection("kelas")
+                  .doc(this.$route.params.id)
+                  .collection("tugas")
+                  .doc(doc.id)
+                  .update({ dokumen: url });
+              } catch (error) {
+                console.error(error);
+              }
             }
           }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
       }
     },
     handleChangeFile(e) {
