@@ -3,30 +3,35 @@
     <div>Dashboard ortu</div>
     <v-form class="mt-20" ref="form" lazy-validation>
       <v-text-field
-      style="max-width: 200px"
+        style="max-width: 200px"
         v-model="code"
         label="Kode Kelas"
         type="text"
         outlined
       ></v-text-field>
-      <v-btn
-      class="white--text" color="#27496d" @click="joinClass">Join class</v-btn>
+      <v-btn class="white--text" color="#27496d" @click="joinClass"
+        >Join class</v-btn
+      >
     </v-form>
     <div style="max-width: fit-content">
-      <div class="mt-10 d-inline-block" v-for="(item, index) in daftar_kelas" :key="index">
+      <div
+        class="mt-10 d-inline-block"
+        v-for="(item, index) in daftar_kelas"
+        :key="index"
+      >
         <v-card
           class="mr-10"
-            @click="$router.push(`/ortu/class/${item.kelas.id}`)"
-            max-width="300px"
-          >
-            <v-img :src="item.kelas.foto" height="200px"></v-img>
+          @click="$router.push(`/ortu/class/${item.kelas.id}`)"
+          max-width="300px"
+        >
+          <v-img :src="item.kelas.foto" height="200px"></v-img>
 
-            <v-card-title>
-              {{ item.kelas.nama }}
-            </v-card-title>
+          <v-card-title>
+            {{ item.kelas.nama }}
+          </v-card-title>
 
-            <v-card-subtitle> Kode Kelas: {{ item.kelas.id }} </v-card-subtitle>
-          </v-card>
+          <v-card-subtitle> Kode Kelas: {{ item.kelas.id }} </v-card-subtitle>
+        </v-card>
       </div>
     </div>
   </div>

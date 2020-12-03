@@ -2,6 +2,7 @@
   <div>
     Detail Kelas buat ortu
     <AssignmentClassOrtu />
+    <ScoreClassOrtu />
   </div>
 </template>
 
@@ -10,14 +11,29 @@ import firebase from "@/firebase";
 import store from "@/store";
 import { mapState } from "vuex";
 
-import AssignmentClassOrtu from "../components/AssigntmentClassOrtu";
+import AssignmentClassOrtu from "../components/AssignmentClassOrtu";
+import ScoreClassOrtu from "../components/ScoreClassOrtu";
 
 export default {
   data() {
-    return {};
+    return {
+      data_kelas: []
+    };
+  },
+  watch: {
+    get_data_kelas: {
+      immediate: true,
+      handler() {
+        this.$bind(
+          "data_kelas",
+          firebase.db.collection("kelas").doc(this.$route.params.id)
+        );
+      }
+    }
   },
   components: {
-    AssignmentClassOrtu
+    AssignmentClassOrtu,
+    ScoreClassOrtu
   },
   computed: {
     ...mapState(["currentUser", "userProfile"])

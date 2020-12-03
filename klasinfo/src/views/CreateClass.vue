@@ -5,7 +5,7 @@
         <div class="title text-center mb-5">KELAS BARU</div>
 
         <v-form class="ma-40" ref="form" lazy-validation>
-            <v-text-field
+          <v-text-field
             v-model="form_kelas.nama"
             label="Nama Kelas"
             type="text"
@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     async tambahKelas() {
-
       if (this.form_kelas.nama == "" || this.form_kelas.deskripsi == "") {
         alert("Input nama dan deskripsi tidak boleh kosong!");
       } else {

@@ -127,6 +127,11 @@ export default {
     async saveNilai(index) {
       let dataNilai = {
         nilai: this.daftar_nilai[index].nilai,
+        tugas: firebase.db
+          .collection("kelas")
+          .doc(this.$route.params.id)
+          .collection("tugas")
+          .doc(this.current_tugas.id),
         tanggal_nilai: firebase.timestamp
       };
       try {

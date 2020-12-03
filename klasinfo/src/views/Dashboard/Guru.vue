@@ -11,20 +11,24 @@
       >Tambah Kelas</v-btn
     >
     <div style="max-width: fit-content">
-      <div class="mt-10 d-inline-block" v-for="(item, index) in daftar_kelas" :key="index">
+      <div
+        class="mt-10 d-inline-block"
+        v-for="(item, index) in daftar_kelas"
+        :key="index"
+      >
         <v-card
           class="mr-10"
-            @click="$router.push(`/guru/class/${item.id}`)"
-            max-width="300px"
-          >
-            <v-img :src="item.foto" height="200px"></v-img>
+          @click="$router.push(`/guru/class/${item.id}`)"
+          max-width="300px"
+        >
+          <v-img :src="item.foto" height="200px"></v-img>
 
-            <v-card-title>
-              {{ item.nama }}
-            </v-card-title>
+          <v-card-title>
+            {{ item.nama }}
+          </v-card-title>
 
-            <v-card-subtitle> Kode Kelas: {{ item.id }} </v-card-subtitle>
-          </v-card>
+          <v-card-subtitle> Kode Kelas: {{ item.id }} </v-card-subtitle>
+        </v-card>
       </div>
     </div>
   </div>

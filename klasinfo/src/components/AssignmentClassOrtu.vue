@@ -5,12 +5,12 @@
       <div v-for="(item, index) in filterSelesai" :key="'selesai-' + index">
         Nama: {{ item.nama }}
       </div>
-      <br>
+      <br />
       Tugas Belum selesai
       <div v-for="(item, index) in filterOngoing" :key="'ongoing-' + index">
         Nama: {{ item.nama }}
       </div>
-    </div>  
+    </div>
   </v-card>
 </template>
 
@@ -22,16 +22,22 @@ export default {
   data() {
     return {
       daftar_tugas: []
-    }
+    };
   },
   watch: {
     get_daftar_tugas: {
       immediate: true,
-      handler () {
-        this.$bind("daftar_tugas", firebase.db.collection("kelas").doc(this.$route.params.id).collection("tugas").orderBy("deadline"))
-          .then(() => {})
+      handler() {
+        this.$bind(
+          "daftar_tugas",
+          firebase.db
+            .collection("kelas")
+            .doc(this.$route.params.id)
+            .collection("tugas")
+            .orderBy("deadline")
+        ).then(() => {});
       }
-    },
+    }
   },
   computed: {
     filterSelesai() {
@@ -45,9 +51,7 @@ export default {
       });
     }
   }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

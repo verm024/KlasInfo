@@ -4,7 +4,18 @@
     <input type="text" v-model="edit_data_kelas.nama" />
     <input type="text" v-model="edit_data_kelas.deskripsi" />
     <input type="file" @change="handleChangeFile" />
-    <button @click="saveChanges">Save</button>
+    <div v-for="(item, index) in jadwal" :key="index">
+      <v-form lazy-validation>
+        <input type="text" v-model="item.hari" />
+        <input type="text" v-model="item.jam_mulai" />
+        <input type="text" v-model="item.jam_selesai" />
+        <button @click.prevent="deleteRow(index)">Hapus</button>
+      </v-form>
+    </div>
+    <button @click="jadwal.push({ hari: '', jam_mulai: '', jam_selesai: '' })">
+      Tambah
+    </button>
+    <v-btn @click="saveChanges">Save</v-btn>
   </v-card>
 </template>
 
@@ -17,7 +28,15 @@ export default {
   data() {
     return {
       edit_data_kelas: [],
-      foto: ""
+      foto: "",
+      jadwal: [
+        {
+          hari: "Senin",
+          jam_mulai: "07:00",
+          jam_selesai: "09:00"
+        }
+      ],
+      form_counter: 1
     };
   },
   computed: {
@@ -28,10 +47,14 @@ export default {
       immediate: true,
       handler() {
         this.edit_data_kelas = JSON.parse(JSON.stringify(this.data_kelas));
+        this.jadwal = this.edit_data_kelas.jadwal;
       }
     }
   },
   methods: {
+    deleteRow(index) {
+      this.jadwal.splice(index, 1);
+    },
     handleChangeFile(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) {
@@ -58,7 +81,8 @@ export default {
             .doc(this.$route.params.id)
             .update({
               ...this.edit_data_kelas,
-              guru: firebase.db.collection("users").doc(this.currentUser.uid)
+              guru: firebase.db.collection("users").doc(this.currentUser.uid),
+              jadwal: this.jadwal
             });
         } catch (error) {
           console.error(error);

@@ -4,15 +4,21 @@
     <div class="titleDiv">
       <div class="upperTitle">
         <div class="judul">
-          <span class="blueBoldTitle">Solusi mudah</span> bagi Anda para orang tua. Tak ada lagi <span class="blueTitle">informasi kelas</span> yang terlewat.
+          <span class="blueBoldTitle">Solusi mudah</span> bagi Anda para orang
+          tua. Tak ada lagi <span class="blueTitle">informasi kelas</span> yang
+          terlewat.
         </div>
-        <div class="judul2">Pengawasan kegiatan putra putri Anda di sekolah.</div>
+        <div class="judul2">
+          Pengawasan kegiatan putra putri Anda di sekolah.
+        </div>
       </div>
       <div class="lowerTitle">
-        <div class="judulbawah">Discover best Homestay at Bali, Indonesia</div>
-        <router-link to="/search">
+        <div class="judulbawah">
+          Daftarkan diri Anda dan putra putri Anda sekarang
+        </div>
+        <router-link to="/login">
           <v-btn large class="mt-5 white--text" color="#0EBEE4">
-            Dashboard
+            MASUK
           </v-btn>
         </router-link>
       </div>
@@ -22,7 +28,7 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "Home"
 };
 </script>
 
@@ -60,7 +66,7 @@ export default {
 }
 .topImage {
   float: right;
-  max-width: 50%;
+  max-width: 60%;
   height: auto;
 }
 </style>

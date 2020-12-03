@@ -1,7 +1,10 @@
 <template>
   <div>
-    Ini skor gan  
-  </div>  
+    Ini skor gan
+    <div v-for="(item, index) in daftar_nilai" :key="index">
+      {{ item.tugas.nama }}: {{ item.nilai }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -11,26 +14,25 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      detail_join: [],
       daftar_nilai: []
-    }
+    };
   },
   computed: {
     ...mapState(["currentUser", "currentAnak"])
   },
-  async created() {
-    
-  },
   watch: {
-    get_daftar_nilai: {
+    get_detail_join: {
       immediate: true,
-      handler () {
-        
-        this.$bind("daftar_nilai", firebase.db
+      handler() {
+        this.$bind(
+          "detail_join",
+          firebase.db
             .collection("join")
             .where(
               "kelas",
               "==",
-              firebase.db.collection("kelas").doc(this.code)
+              firebase.db.collection("kelas").doc(this.$route.params.id)
             )
             .where(
               "anak",
@@ -40,17 +42,22 @@ export default {
                 .doc(this.currentUser.uid)
                 .collection("anak")
                 .doc(this.currentAnak.id)
-            ).then(() => {
-              if (this.daftar_nilai.length > 0) {
-
-              }
-            }))
+            )
+        ).then(() => {
+          if (this.detail_join.length > 0) {
+            this.$bind(
+              "daftar_nilai",
+              firebase.db
+                .collection("join")
+                .doc(this.detail_join[0].id)
+                .collection("nilai")
+            );
+          }
+        });
       }
     }
   }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
