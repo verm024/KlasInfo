@@ -1,16 +1,60 @@
 <template>
-  <div class="register">
-    <input v-model="form_register.email" type="text" placeholder="email" />
-    <input
-      v-model="form_register.password"
-      type="password"
-      placeholder="password"
-    />
-    <select v-model="form_register.role">
-      <option value="guru">Guru</option>
-      <option value="ortu">Ortu</option>
-    </select>
-    <button @click="register">Register</button>
+  <div class="container">
+    <v-card class="mx-auto px-10 py-5 my-12" max-width="500" min-height="400">
+      <v-card-text>
+        <div class="title text-center mb-5">REGISTER</div>
+        <v-form class="ma-40" ref="form" lazy-validation>
+          <v-text-field
+            v-model="form_register.email"
+            label="E-mail"
+            outlined
+          ></v-text-field>
+
+          <v-text-field
+            v-model="form_register.password"
+            label="Password"
+            type="password"
+            outlined
+          ></v-text-field>
+
+          <v-text-field
+            v-model="form_register.nama"
+            label="Full Name"
+            type="text"
+            outlined
+          ></v-text-field>
+
+          <v-text-field
+            v-model="form_register.notelp"
+            label="Phone Number"
+            type="text"
+            outlined
+          ></v-text-field>
+
+          <v-select
+            v-model="form_register.role"
+            :items="items"
+            item-text="text"
+            item-value="value"
+            label="Role"
+            persistent-hint
+            single-line
+            outlined
+          ></v-select>
+
+          <div class="button text-center">
+            <v-btn
+              elevation="0"
+              class="mb-5 white--text"
+              color="#0F4C75"
+              @click="register"
+            >
+              REGISTER
+            </v-btn>
+          </div>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -24,7 +68,17 @@ export default {
         email: "",
         password: "",
         role: "ortu"
-      }
+      },
+      items: [
+        {
+          text: "Orang Tua",
+          value: "ortu"
+        },
+        {
+          text: "Guru",
+          value: "guru"
+        }
+      ]
     };
   },
   methods: {

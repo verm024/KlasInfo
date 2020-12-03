@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="#27496d" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -22,7 +22,11 @@
       </div>
 
       <v-spacer></v-spacer>
-
+      <router-link to="/">
+        <v-btn text>
+          Home
+        </v-btn>
+      </router-link>
       <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
         <span class="mr-2">Login</span>
       </v-btn>

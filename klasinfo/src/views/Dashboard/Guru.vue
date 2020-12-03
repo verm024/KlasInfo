@@ -1,5 +1,7 @@
 <template>
   <div class="guru">
+    <!-- <Navbar /> -->
+
     Dashboard Guru
     <div v-for="(item, index) in daftar_kelas" :key="index">
       {{ item.nama }}
@@ -10,6 +12,7 @@
 <script>
 import firebase from "@/firebase";
 import { mapState } from "vuex";
+// import Navbar from "@/components/Navbar";
 
 export default {
   data() {
@@ -17,6 +20,9 @@ export default {
       daftar_kelas: []
     };
   },
+  // components: {
+  //   Navbar
+  // },
   computed: {
     ...mapState(["currentUser"])
   },

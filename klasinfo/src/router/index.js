@@ -6,6 +6,7 @@ import CreateClass from "../views/CreateClass";
 import DetailClassGuru from "../views/DetailClassGuru";
 import Ortu from "../views/Dashboard/Ortu";
 import CreateChild from "../views/CreateChild";
+import DetailClassOrtu from "../views/DetailClassOrtu";
 import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
 import firebase from "../firebase";
@@ -60,6 +61,16 @@ const routes = [
       requiresLogin: true,
       allowedRole: "ortu",
       title: "Dashboard"
+    }
+  },
+  {
+    path: "/ortu/class/:id",
+    name: "Detail Class Guru",
+    component: DetailClassOrtu,
+    meta: {
+      requiresLogin: true,
+      allowedRole: "ortu",
+      title: "Detail Class"
     }
   },
   {
