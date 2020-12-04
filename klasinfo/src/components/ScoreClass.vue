@@ -125,6 +125,9 @@ export default {
       });
     },
     async saveNilai(index) {
+      if (this.daftar_nilai[index].nilai == "") {
+        this.daftar_nilai[index].nilai = 0;
+      }
       let dataNilai = {
         nilai: this.daftar_nilai[index].nilai,
         tugas: firebase.db
