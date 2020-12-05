@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <h3>
-    Ini skor gan
-
+      Ini skor gan
     </h3>
     <!-- <div v-for="(item, index) in daftar_nilai" :key="index">
       <v-card outlined max-width="200px">
@@ -37,11 +36,11 @@ export default {
   data() {
     return {
       detail_join: [],
-      daftar_nilai: [],
+      daftar_nilai: []
     };
   },
   computed: {
-    ...mapState(["currentUser", "currentAnak"]),
+    ...mapState(["currentUser", "currentAnak"])
   },
   watch: {
     get_detail_join: {
@@ -61,9 +60,9 @@ export default {
               "==",
               firebase.db
                 .collection("users")
-                .doc(this.currentUser.uid)
+                .doc(this.currentUser.getUid())
                 .collection("anak")
-                .doc(this.currentAnak.id)
+                .doc(this.currentAnak.getId())
             )
         ).then(() => {
           if (this.detail_join.length > 0) {
@@ -76,9 +75,9 @@ export default {
             );
           }
         });
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

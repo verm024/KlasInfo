@@ -60,6 +60,7 @@
 
 <script>
 import firebase from "../../firebase";
+import { User } from "../../classes";
 
 export default {
   data() {
@@ -113,7 +114,7 @@ export default {
       } catch (error) {
         console.error(error);
       }
-      this.$store.commit("setCurrentUser", user);
+      this.$store.commit("setCurrentUser", new User(user));
       await this.$store.dispatch("fetchUserProfile");
       await this.$store.dispatch("fetchCurrentAnak");
       this.$router.push("/" + this.form_register.role);

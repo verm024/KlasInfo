@@ -15,7 +15,11 @@
                 type="text"
                 outlined
               ></v-text-field>
-              <v-btn class="white--text block" color="#27496d" @click="joinClass">
+              <v-btn
+                class="white--text block"
+                color="#27496d"
+                @click="joinClass"
+              >
                 Join class
               </v-btn>
             </v-form>
@@ -62,11 +66,11 @@ export default {
   data() {
     return {
       code: "",
-      daftar_kelas: [],
+      daftar_kelas: []
     };
   },
   computed: {
-    ...mapState(["currentAnak", "currentUser"]),
+    ...mapState(["currentAnak", "currentUser"])
   },
   watch: {
     get_daftar_kelas: {
@@ -74,25 +78,26 @@ export default {
       handler() {
         this.$bind(
           "daftar_kelas",
-          firebase.db
-            .collection("join")
-            .where(
-              "anak",
-              "==",
-              firebase.db
-                .collection("users")
-                .doc(this.currentUser.uid)
-                .collection("anak")
-                .doc(store.state.currentAnak.id)
-            )
+          firebase.db.collection("join").where(
+            "anak",
+            "==",
+            firebase.db
+              .collection("users")
+              .doc(this.currentUser.getUid())
+              .collection("anak")
+              .doc(store.state.currentAnak.getId())
+          )
         );
-      },
-    },
+      }
+    }
   },
   methods: {
     async joinClass() {
       try {
-        let doc = await firebase.db.collection("kelas").doc(this.code).get();
+        let doc = await firebase.db
+          .collection("kelas")
+          .doc(this.code)
+          .get();
         if (doc.exists) {
           let doc2 = await firebase.db
             .collection("join")
@@ -106,9 +111,9 @@ export default {
               "==",
               firebase.db
                 .collection("users")
-                .doc(this.currentUser.uid)
+                .doc(this.currentUser.getUid())
                 .collection("anak")
-                .doc(this.currentAnak.id)
+                .doc(this.currentAnak.getId())
             )
             .get();
           if (doc2.docs.length > 0) {
@@ -117,11 +122,11 @@ export default {
             let infoJoin = {
               anak: firebase.db
                 .collection("users")
-                .doc(this.currentUser.uid)
+                .doc(this.currentUser.getUid())
                 .collection("anak")
-                .doc(this.currentAnak.id),
+                .doc(this.currentAnak.getId()),
               kelas: firebase.db.collection("kelas").doc(this.code),
-              tanggal_join: firebase.timestamp,
+              tanggal_join: firebase.timestamp
             };
             await firebase.db.collection("join").add(infoJoin);
             alert("Berhasil masuk kelas");
@@ -133,8 +138,8 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

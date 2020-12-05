@@ -2,21 +2,18 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import firebase from "../firebase";
+import { Anak } from "../classes";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     currentUser: null,
-    userProfile: null,
     currentAnak: null
   },
   mutations: {
     setCurrentUser(state, val) {
       state.currentUser = val;
-    },
-    setUserProfile(state, val) {
-      state.userProfile = val;
     },
     setCurrentAnak(state, val) {
       state.currentAnak = val;
@@ -26,28 +23,32 @@ export default new Vuex.Store({
     async fetchUserProfile({ commit, state }) {
       let tempUserProfile = await firebase.db
         .collection("users")
-        .doc(state.currentUser.uid)
+        .doc(state.currentUser.getUid())
         .get();
       let data = tempUserProfile.data();
-      commit("setUserProfile", data);
+      state.currentUser.setUserProfile(data);
     },
     async fetchCurrentAnak({ commit, state }) {
-      if (state.userProfile.role == "ortu") {
+      if (state.currentUser.getUserProfile().role == "ortu") {
+        let anak
         if (state.currentAnak == null) {
           let doc = await firebase.db
             .collection("users")
-            .doc(state.currentUser.uid)
+            .doc(state.currentUser.getUid())
             .collection("anak")
             .orderBy("tanggal_dibuat")
             .get();
           if (!doc.empty) {
-            let anak = {
+            anak = {
               ...doc.docs[0].data(),
               id: doc.docs[0].id
             };
-            commit("setCurrentAnak", anak);
           }
         }
+        else {
+          anak = state.currentAnak.anak;
+        }
+        commit("setCurrentAnak", new Anak(anak));
       }
     }
   },
@@ -55,9 +56,6 @@ export default new Vuex.Store({
   getters: {
     currentUser: state => {
       return state.currentUser;
-    },
-    userProfile: state => {
-      return state.userProfile;
     }
   },
   plugins: [createPersistedState()]

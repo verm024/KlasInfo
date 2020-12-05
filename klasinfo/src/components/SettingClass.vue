@@ -81,7 +81,9 @@ export default {
             .doc(this.$route.params.id)
             .update({
               ...this.edit_data_kelas,
-              guru: firebase.db.collection("users").doc(this.currentUser.uid),
+              guru: firebase.db
+                .collection("users")
+                .doc(this.currentUser.getUid()),
               jadwal: this.jadwal
             });
         } catch (error) {

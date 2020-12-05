@@ -6,6 +6,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import { firestorePlugin } from "vuefire";
 import firebase from "./firebase";
+import { User } from "./classes";
 
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
@@ -15,12 +16,11 @@ firebase.auth.onState;
 
 firebase.auth.onAuthStateChanged(async user => {
   if (user) {
-    store.commit("setCurrentUser", user);
+    store.commit("setCurrentUser", new User(user));
     await store.dispatch("fetchUserProfile");
     await store.dispatch("fetchCurrentAnak");
   } else {
     store.commit("setCurrentUser", null);
-    store.commit("setUserProfile", null);
     store.commit("setCurrentAnak", null);
   }
   if (!app) {

@@ -72,7 +72,7 @@ export default {
       .get();
     if (doc.exists) {
       let data = doc.data();
-      if (data.guru.id == store.state.currentUser.uid) {
+      if (data.guru.id == store.state.currentUser.getUid()) {
         next();
       } else {
         next("/guru");

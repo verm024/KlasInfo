@@ -48,7 +48,7 @@ export default {
       } else {
         alert("Kelas berhasil dibuat!");
         let dataKelas = {
-          guru: firebase.db.collection("users").doc(this.currentUser.uid),
+          guru: firebase.db.collection("users").doc(this.currentUser.getUid()),
           nama: this.form_kelas.nama,
           deskripsi: this.form_kelas.deskripsi,
           tanggal_dibuat: firebase.timestamp,

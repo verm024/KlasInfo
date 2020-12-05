@@ -35,6 +35,7 @@
 
 <script>
 import firebase from "../../firebase";
+import { User } from "../../classes";
 
 export default {
   data() {
@@ -58,10 +59,12 @@ export default {
       }
       if (user) {
         user = user.user;
-        this.$store.commit("setCurrentUser", user);
+        this.$store.commit("setCurrentUser", new User(user));
         await this.$store.dispatch("fetchUserProfile");
         await this.$store.dispatch("fetchCurrentAnak");
-        this.$router.push("/" + this.$store.state.userProfile.role);
+        this.$router.push(
+          "/" + this.$store.state.currentUser.getUserProfile().role
+        );
       }
     }
   }

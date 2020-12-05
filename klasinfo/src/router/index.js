@@ -20,7 +20,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "BaliStay"
+      title: "Klasinfo"
     }
   },
   {
@@ -116,22 +116,26 @@ router.beforeEach(async (to, from, next) => {
   let requiresLogin = to.matched.some(x => x.meta.requiresLogin);
   if (to.name == "Unavailable") {
     if (currentUser) {
-      next("/" + store.state.userProfile.role);
+      next("/" + store.state.currentUser.getUserProfile().role);
     } else {
       next("/");
     }
   } else {
     if (currentUser) {
       if (requiresLogin) {
-        if (to.meta.allowedRole.includes(store.state.userProfile.role)) {
+        if (
+          to.meta.allowedRole.includes(
+            store.state.currentUser.getUserProfile().role
+          )
+        ) {
           if (
-            store.state.userProfile.role == "ortu" &&
+            store.state.currentUser.getUserProfile().role == "ortu" &&
             to.name != "Create Child"
           ) {
             try {
               let doc = await firebase.db
                 .collection("users")
-                .doc(store.state.currentUser.uid)
+                .doc(store.state.currentUser.getUid())
                 .collection("anak")
                 .orderBy("tanggal_dibuat")
                 .get();
@@ -142,17 +146,17 @@ router.beforeEach(async (to, from, next) => {
               }
             } catch (error) {
               console.error(error);
-              next("/" + store.state.userProfile.role);
+              next("/" + store.state.currentUser.getUserProfile().role);
             }
           } else {
             next();
           }
         } else {
-          next("/" + store.state.userProfile.role); //To user dashboard
+          next("/" + store.state.currentUser.getUserProfile().role); //To user dashboard
         }
       } else {
         if (to.name == "Register" || to.name == "Login") {
-          next("/" + store.state.userProfile.role); //To user dashboard
+          next("/" + store.state.currentUser.getUserProfile().role); //To user dashboard
         } else {
           next();
         }

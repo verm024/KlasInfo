@@ -62,7 +62,7 @@ export default {
       try {
         await firebase.db
           .collection("users")
-          .doc(this.currentUser.uid)
+          .doc(this.currentUser.getUid())
           .collection("anak")
           .add({ ...this.form_anak, tanggal_dibuat: firebase.timestamp });
         await this.$store.dispatch("fetchCurrentAnak");

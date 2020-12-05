@@ -28,8 +28,8 @@
         </v-btn>
       </router-link>
       <router-link
-        v-if="currentUser && userProfile"
-        :to="'/' + userProfile.role"
+        v-if="currentUser && currentUser.getUserProfile()"
+        :to="'/' + currentUser.getUserProfile().role"
       >
         <v-btn text>
           Dashboard
@@ -71,13 +71,12 @@ export default {
         console.error(error);
       }
       this.$store.commit("setCurrentUser", null);
-      this.$store.commit("setUserProfile", null);
       this.$store.commit("setCurrentAnak", null);
       this.$router.push("/login");
     }
   },
   computed: {
-    ...mapState(["currentUser", "userProfile"])
+    ...mapState(["currentUser"])
   }
 };
 </script>

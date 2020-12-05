@@ -62,7 +62,7 @@ export default {
             .where(
               "guru",
               "==",
-              firebase.db.collection("users").doc(this.currentUser.uid)
+              firebase.db.collection("users").doc(this.currentUser.getUid())
             )
             .orderBy("nama")
         );

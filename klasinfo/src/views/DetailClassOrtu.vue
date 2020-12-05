@@ -18,7 +18,7 @@ import ScoreClassOrtu from "../components/ScoreClassOrtu";
 export default {
   data() {
     return {
-      data_kelas: [],
+      data_kelas: []
     };
   },
   watch: {
@@ -29,19 +29,23 @@ export default {
           "data_kelas",
           firebase.db.collection("kelas").doc(this.$route.params.id)
         );
-      },
-    },
+      }
+    }
   },
   components: {
     AssignmentClassOrtu,
-    ScoreClassOrtu,
+    ScoreClassOrtu
   },
   computed: {
-    ...mapState(["currentUser", "userProfile"]),
+    ...mapState(["currentUser"])
   },
   async beforeRouteEnter(to, from, next) {
-    let doc = await firebase.db.collection("kelas").doc(to.params.id).get();
+    let doc = await firebase.db
+      .collection("kelas")
+      .doc(to.params.id)
+      .get();
     if (doc.exists) {
+      console.log(store.state.currentAnak);
       let doc2 = await firebase.db
         .collection("join")
         .where("kelas", "==", firebase.db.collection("kelas").doc(to.params.id))
@@ -50,9 +54,9 @@ export default {
           "==",
           firebase.db
             .collection("users")
-            .doc(store.state.currentUser.uid)
+            .doc(store.state.currentUser.getUid())
             .collection("anak")
-            .doc(store.state.currentAnak.id)
+            .doc(store.state.currentAnak.getId())
         )
         .get();
       if (doc2.docs.length > 0) {
@@ -63,7 +67,7 @@ export default {
     } else {
       next("/ortu");
     }
-  },
+  }
 };
 </script>
 

@@ -27,7 +27,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      daftar_tugas: [],
+      daftar_tugas: []
     };
   },
   watch: {
@@ -42,21 +42,21 @@ export default {
             .collection("tugas")
             .orderBy("deadline")
         ).then(() => {});
-      },
-    },
+      }
+    }
   },
   computed: {
     filterSelesai() {
-      return this.daftar_tugas.filter((element) => {
+      return this.daftar_tugas.filter(element => {
         return element.deadline <= firebase.timestamp;
       });
     },
     filterOngoing() {
-      return this.daftar_tugas.filter((element) => {
+      return this.daftar_tugas.filter(element => {
         return element.deadline > firebase.timestamp;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
