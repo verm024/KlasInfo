@@ -1,6 +1,7 @@
 <template>
   <div>
-    Detail Kelas buat ortu
+    <h2>Detail Kelas buat ortu</h2>
+
     <AssignmentClassOrtu />
     <ScoreClassOrtu />
   </div>
@@ -17,7 +18,7 @@ import ScoreClassOrtu from "../components/ScoreClassOrtu";
 export default {
   data() {
     return {
-      data_kelas: []
+      data_kelas: [],
     };
   },
   watch: {
@@ -28,21 +29,18 @@ export default {
           "data_kelas",
           firebase.db.collection("kelas").doc(this.$route.params.id)
         );
-      }
-    }
+      },
+    },
   },
   components: {
     AssignmentClassOrtu,
-    ScoreClassOrtu
+    ScoreClassOrtu,
   },
   computed: {
-    ...mapState(["currentUser", "userProfile"])
+    ...mapState(["currentUser", "userProfile"]),
   },
   async beforeRouteEnter(to, from, next) {
-    let doc = await firebase.db
-      .collection("kelas")
-      .doc(to.params.id)
-      .get();
+    let doc = await firebase.db.collection("kelas").doc(to.params.id).get();
     if (doc.exists) {
       let doc2 = await firebase.db
         .collection("join")
@@ -65,7 +63,7 @@ export default {
     } else {
       next("/ortu");
     }
-  }
+  },
 };
 </script>
 

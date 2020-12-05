@@ -1,10 +1,32 @@
 <template>
-  <div>
+  <v-container>
+    <h3>
     Ini skor gan
-    <div v-for="(item, index) in daftar_nilai" :key="index">
-      {{ item.tugas.nama }}: {{ item.nilai }}
-    </div>
-  </div>
+
+    </h3>
+    <!-- <div v-for="(item, index) in daftar_nilai" :key="index">
+      <v-card outlined max-width="200px">
+        <v-card-title>
+          {{ item.tugas.nama }}
+        </v-card-title>
+        <v-card-subtitle> Nilai: {{ item.nilai }} </v-card-subtitle>
+      </v-card>
+    </div> -->
+    <v-simple-table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Tugas</th>
+          <th>Nilai</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in daftar_nilai" :key="index">
+          <td>{{ item.tugas.nama }}</td>
+          <td>{{ item.nilai }}</td>
+        </tr>
+      </tbody>
+    </v-simple-table>
+  </v-container>
 </template>
 
 <script>
@@ -15,11 +37,11 @@ export default {
   data() {
     return {
       detail_join: [],
-      daftar_nilai: []
+      daftar_nilai: [],
     };
   },
   computed: {
-    ...mapState(["currentUser", "currentAnak"])
+    ...mapState(["currentUser", "currentAnak"]),
   },
   watch: {
     get_detail_join: {
@@ -54,9 +76,9 @@ export default {
             );
           }
         });
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 
