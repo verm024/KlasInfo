@@ -14,7 +14,12 @@
           <tr v-for="(item, index) in filterOngoing" :key="'ongoing-' + index">
             <td>{{ item.nama }}</td>
             <td>{{ item.deskripsi }}</td>
-            <v-btn class="white--text" color="#27496d" :href="item.dokumen" target="_blank">
+            <v-btn
+              class="white--text"
+              color="#27496d"
+              :href="item.dokumen"
+              target="_blank"
+            >
               <v-icon left>mdi-file-download</v-icon>
               Berkas
             </v-btn>
@@ -25,21 +30,26 @@
     <v-spacer></v-spacer>
     <v-container>
       <h3>Tugas Sudah Selesai</h3>
-      <v-data-table 
+      <v-data-table
         :headers="headers"
         :items="filterSelesai"
         :items-per-page="5"
         item-key="index"
-        class="elevation-2">
-
+        class="elevation-2"
+      >
         // eslint-disable-next-line
         <template v-slot:item.controls="{ item }">
-          <v-btn class="white--text" color="#27496d" :href="item.dokumen" target="_blank">
+          <v-btn
+            class="white--text"
+            color="#27496d"
+            :href="item.dokumen"
+            target="_blank"
+          >
             <v-icon left>mdi-file-download</v-icon>
             Berkas
           </v-btn>
         </template>
-        </v-data-table>
+      </v-data-table>
     </v-container>
   </div>
 </template>
@@ -98,7 +108,7 @@ export default {
           sortable: false,
           value: "controls"
         }
-      ]
+      ];
     }
   }
 };

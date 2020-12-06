@@ -100,10 +100,10 @@ export default {
       this.$store.commit("setCurrentUser", null);
       this.$store.commit("setCurrentAnak", null);
       this.$router.push("/login");
-    },
+    }
   },
   computed: {
-    ...mapState(["currentUser"]),
-  },
+    ...mapState(["currentUser"])
+  }
 };
 </script>
