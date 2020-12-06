@@ -30,7 +30,7 @@ export default new Vuex.Store({
     },
     async fetchCurrentAnak({ commit, state }) {
       if (state.currentUser.getUserProfile().role == "ortu") {
-        let anak
+        let anak;
         if (state.currentAnak == null) {
           let doc = await firebase.db
             .collection("users")
@@ -44,8 +44,7 @@ export default new Vuex.Store({
               id: doc.docs[0].id
             };
           }
-        }
-        else {
+        } else {
           anak = state.currentAnak.anak;
         }
         commit("setCurrentAnak", new Anak(anak));

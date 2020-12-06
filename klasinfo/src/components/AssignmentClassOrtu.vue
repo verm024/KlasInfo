@@ -1,22 +1,46 @@
 <template>
   <div>
-    <v-card>
-      <v-container>
-        Tugas selesai
-        <div v-for="(item, index) in filterSelesai" :key="'selesai-' + index">
-          Nama: {{ item.nama }}
-        </div>
-      </v-container>
-    </v-card>
+    <v-container>
+      <h3>Tugas Belum Selesai</h3>
+      <v-simple-table class="elevation-2">
+        <thead>
+          <tr>
+            <th>Nama Tugas</th>
+            <th>Deskripsi</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in filterOngoing" :key="'ongoing-' + index">
+            <td>{{ item.nama }}</td>
+            <td>{{ item.deskripsi }}</td>
+            <v-btn :href="item.dokumen" target="_blank">
+              <v-icon left>mdi-file-download</v-icon>
+              Berkas
+            </v-btn>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </v-container>
     <v-spacer></v-spacer>
-    <v-card>
-      <v-container>
-        Tugas Belum selesai
-        <div v-for="(item, index) in filterOngoing" :key="'ongoing-' + index">
-          Nama: {{ item.nama }}
-        </div>
-      </v-container>
-    </v-card>
+    <v-container>
+      <h3>Tugas Sudah Selesai</h3>
+      <v-data-table 
+        :headers="headers"
+        :items="filterSelesai"
+        :items-per-page="5"
+        item-key="index"
+        class="elevation-2">
+
+        // eslint-disable-next-line
+        <template v-slot:item.controls="{ item }">
+          <v-btn :href="item.dokumen">
+            <v-icon left>mdi-file-download</v-icon>
+            Berkas
+          </v-btn>
+        </template>
+        </v-data-table>
+    </v-container>
   </div>
 </template>
 
@@ -55,6 +79,26 @@ export default {
       return this.daftar_tugas.filter(element => {
         return element.deadline > firebase.timestamp;
       });
+    },
+    headers() {
+      return [
+        {
+          text: "Nama Tugas",
+          align: "start",
+          sortable: false,
+          value: "nama"
+        },
+        {
+          text: "Deskripsi",
+          sortable: false,
+          value: "deskripsi"
+        },
+        {
+          text: "Aksi",
+          sortable: false,
+          value: "controls"
+        }
+      ]
     }
   }
 };

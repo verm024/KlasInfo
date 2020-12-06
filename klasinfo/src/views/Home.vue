@@ -66,7 +66,7 @@ export default {
 }
 .topImage {
   float: right;
-  max-width: 60%;
-  height: auto;
+  max-width: auto;
+  max-height: auto;
 }
 </style>

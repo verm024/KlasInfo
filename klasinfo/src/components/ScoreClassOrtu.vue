@@ -1,30 +1,26 @@
 <template>
   <v-container>
-    <h3>
-      Ini skor gan
-    </h3>
-    <!-- <div v-for="(item, index) in daftar_nilai" :key="index">
-      <v-card outlined max-width="200px">
-        <v-card-title>
-          {{ item.tugas.nama }}
-        </v-card-title>
-        <v-card-subtitle> Nilai: {{ item.nilai }} </v-card-subtitle>
-      </v-card>
-    </div> -->
-    <v-simple-table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th>Tugas</th>
-          <th>Nilai</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in daftar_nilai" :key="index">
-          <td>{{ item.tugas.nama }}</td>
-          <td>{{ item.nilai }}</td>
-        </tr>
-      </tbody>
-    </v-simple-table>
+    <h3>Daftar Perolehan Nilai</h3>
+    <v-data-table
+      :headers="headers"
+      :items="daftar_nilai"
+      item-key="index"
+      :search="search"
+      :items-per-page="5"
+      :custom-filter="filterOnlyLowerCase"
+      class="elevation-2"
+    >
+      <template v-slot:top>
+        <v-text-field
+          v-model="search"
+          label="Cari nama tugas (lower case)"
+          class="mx-4"
+        ></v-text-field>
+      </template>
+
+      // eslint-disable-next-line
+      <template v-slot:body.append></template>
+    </v-data-table>
   </v-container>
 </template>
 
@@ -35,12 +31,28 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      search: "",
       detail_join: [],
       daftar_nilai: []
     };
   },
   computed: {
-    ...mapState(["currentUser", "currentAnak"])
+    ...mapState(["currentUser", "currentAnak"]),
+    headers() {
+      return [
+        {
+          text: "Nama Tugas",
+          align: "start",
+          sortable: false,
+          value: "tugas.nama"
+        },
+        {
+          text: "Nilai",
+          sortable: true,
+          value: "nilai"
+        }
+      ];
+    }
   },
   watch: {
     get_detail_join: {
@@ -76,6 +88,19 @@ export default {
           }
         });
       }
+    }
+  },
+  methods: {
+    filterOnlyLowerCase(value, search, item) {
+      return (
+        value != null &&
+        search != null &&
+        typeof value === "string" &&
+        value
+          .toString()
+          .toLocaleLowerCase()
+          .indexOf(search) !== -1
+      );
     }
   }
 };
