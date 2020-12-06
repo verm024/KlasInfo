@@ -1,28 +1,44 @@
 <template>
   <div class="home">
-    <div class="titleDiv">
-      <div class="upperTitle">
-        <div class="judul">
-          <span class="blueBoldTitle">Solusi mudah</span> bagi Anda para orang
-          tua. Tak ada lagi <span class="blueTitle">informasi kelas</span> yang
-          terlewat.
-        </div>
-        <div class="judul2">
-          Pengawasan kegiatan putra putri Anda di sekolah.
-        </div>
-      </div>
-      <img class="topImage" alt="KlasInfo" src="../assets/klasinfoArt1.png" />
-      <!-- <div v-if="!(currentUser && currentUser.getUserProfile())"  class="lowerTitle">
-        <div class="judulbawah">
-          Daftarkan diri Anda dan putra putri Anda sekarang
-        </div>
-        <router-link to="/login">
-          <v-btn large class="mt-5 white--text" color="#0EBEE4">
-            MASUK
-          </v-btn>
-        </router-link>
-      </div> -->
-    </div>
+    <v-container>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-img
+            contain
+            max-width="800"
+            alt="BaliStay"
+            src="../assets/klasinfoArt1.png"
+          />
+        </v-col>
+        <v-col cols="12" md="6">
+          <div>
+            <div class="upperTitle">
+              <div class="judul" cols="12" sm="4">
+                <span class="blueBoldTitle">Solusi mudah</span> bagi Anda para
+                orang tua. Tak ada lagi
+                <span class="blueTitle">informasi kelas</span> yang terlewat.
+              </div>
+              <div class="judul2">
+                Pengawasan kegiatan putra putri Anda di sekolah.
+              </div>
+            </div>
+            <div
+              v-if="!(currentUser && currentUser.getUserProfile())"
+              class="lowerTitle"
+            >
+              <div class="judulbawah">
+                Daftarkan diri Anda dan putra putri Anda sekarang
+              </div>
+              <router-link to="/login">
+                <v-btn large class="mt-5 white--text" color="#27496d">
+                  MASUK
+                </v-btn>
+              </router-link>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -34,12 +50,7 @@ export default {
 
 <style scoped>
 .home {
-  margin-top: -50px;
-}
-.titleDiv {
-  float: left;
-  margin: 60px 0 0 80px;
-  max-width: 500px;
+  margin: 50px 50px;
 }
 .judul {
   line-height: 60px;
@@ -50,23 +61,18 @@ export default {
   font-size: 20px;
 }
 .blueBoldTitle {
-  color: #0ebee4;
+  color: #3282b8;
   font-weight: bold;
 }
 .blueTitle {
-  color: #0ebee4;
+  color: #3282b8;
 }
 .lowerTitle {
-  margin-top: 150px;
+  margin-top: 100px;
 }
 .judulbawah {
   font-size: 40px;
   color: #999999;
   line-height: 50px;
-}
-.topImage {
-  float: right;
-  max-width: auto;
-  max-height: auto;
 }
 </style>
