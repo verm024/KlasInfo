@@ -5,11 +5,11 @@
         <h1>Dashboard ortu</h1>
       </div>
       <v-row>
-        <v-col cols="2">
+        <v-col cols="auto">
           <v-sheet>
             <v-form class="mt-20" ref="form" lazy-validation>
               <v-text-field
-                style="max-width: 300px"
+                style="min-width: 170px max-width: 300px"
                 v-model="code"
                 label="Kode Kelas"
                 type="text"

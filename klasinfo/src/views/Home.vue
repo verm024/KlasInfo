@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img class="topImage" alt="KlasInfo" src="../assets/klasinfoArt1.png" />
     <div class="titleDiv">
       <div class="upperTitle">
         <div class="judul">
@@ -12,6 +11,7 @@
           Pengawasan kegiatan putra putri Anda di sekolah.
         </div>
       </div>
+      <img class="topImage" alt="KlasInfo" src="../assets/klasinfoArt1.png" />
       <!-- <div v-if="!(currentUser && currentUser.getUserProfile())"  class="lowerTitle">
         <div class="judulbawah">
           Daftarkan diri Anda dan putra putri Anda sekarang
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
 };
 </script>
 

@@ -22,29 +22,56 @@
       </div>
 
       <v-spacer></v-spacer>
-      <router-link to="/">
-        <v-btn text>
-          Home
+      <v-list class="hidden-sm-and-down" color="#27496d">
+        <router-link to="/">
+          <v-btn text> Home </v-btn>
+        </router-link>
+        <router-link
+          v-if="currentUser && currentUser.getUserProfile()"
+          :to="'/' + currentUser.getUserProfile().role"
+        >
+          <v-btn text> Dashboard </v-btn>
+        </router-link>
+        <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
+          <span class="mr-2">Login</span>
         </v-btn>
-      </router-link>
-      <router-link
-        v-if="currentUser && currentUser.getUserProfile()"
-        :to="'/' + currentUser.getUserProfile().role"
-      >
-        <v-btn text>
-          Dashboard
+        <v-btn v-if="!currentUser" @click="$router.push('/register')" text>
+          <span class="mr-2">Register</span>
         </v-btn>
-      </router-link>
-      <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
-        <span class="mr-2">Login</span>
-      </v-btn>
-      <v-btn v-if="!currentUser" @click="$router.push('/register')" text>
-        <span class="mr-2">Register</span>
-      </v-btn>
-      <v-btn v-if="currentUser" @click="logout" text>
-        <span class="mr-2">Logout</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+        <v-btn v-if="currentUser" @click="logout" text>
+          <span class="mr-2">Logout</span>
+          <v-icon>mdi-open-in-new</v-icon>
+        </v-btn>
+      </v-list>
+      <v-menu class="hidden-md-and-up" bottom left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="hidden-md-and-up" dark icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <router-link to="/">
+            <v-btn text> Home </v-btn>
+          </router-link>
+          <router-link
+            v-if="currentUser && currentUser.getUserProfile()"
+            :to="'/' + currentUser.getUserProfile().role"
+          >
+            <v-btn text> Dashboard </v-btn>
+          </router-link>
+          <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
+            <span class="mr-2">Login</span>
+          </v-btn>
+          <v-btn v-if="!currentUser" @click="$router.push('/register')" text>
+            <span class="mr-2">Register</span>
+          </v-btn>
+          <v-btn v-if="currentUser" @click="logout" text>
+            <span class="mr-2">Logout</span>
+            <v-icon>mdi-open-in-new</v-icon>
+          </v-btn>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main>
@@ -73,10 +100,10 @@ export default {
       this.$store.commit("setCurrentUser", null);
       this.$store.commit("setCurrentAnak", null);
       this.$router.push("/login");
-    }
+    },
   },
   computed: {
-    ...mapState(["currentUser"])
-  }
+    ...mapState(["currentUser"]),
+  },
 };
 </script>

@@ -14,7 +14,7 @@
           <tr v-for="(item, index) in filterOngoing" :key="'ongoing-' + index">
             <td>{{ item.nama }}</td>
             <td>{{ item.deskripsi }}</td>
-            <v-btn :href="item.dokumen" target="_blank">
+            <v-btn class="white--text" color="#27496d" :href="item.dokumen" target="_blank">
               <v-icon left>mdi-file-download</v-icon>
               Berkas
             </v-btn>
@@ -34,7 +34,7 @@
 
         // eslint-disable-next-line
         <template v-slot:item.controls="{ item }">
-          <v-btn :href="item.dokumen">
+          <v-btn class="white--text" color="#27496d" :href="item.dokumen" target="_blank">
             <v-icon left>mdi-file-download</v-icon>
             Berkas
           </v-btn>
