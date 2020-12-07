@@ -1,25 +1,33 @@
 <template>
   <div class="create-class container">
-    <v-card>
+    <v-card class="mx-auto px-10 py-5 my-12" max-width="500" min-height="350">
       <v-card-text>
-        <div class="title text-center mb-5">KELAS BARU</div>
-
+        <div class="title text-center mb-5">Buat Kelas</div>
         <v-form class="ma-40" ref="form" lazy-validation>
           <v-text-field
             v-model="form_kelas.nama"
             label="Nama Kelas"
-            type="text"
             outlined
           ></v-text-field>
-          <v-text-field
+          <v-textarea
             v-model="form_kelas.deskripsi"
-            label="Deskripsi Kelas"
-            type="text"
+            label="Deskripsi"
             outlined
-          ></v-text-field>
-          Foto Kelas
+          ></v-textarea>
+          <div class="form-sub">
+            Foto Kelas
+          </div>
           <input type="file" @change="handleChangeFile" />
-          <v-btn @click="tambahKelas">Tambah Kelas</v-btn>
+          <div class="button text-center">
+            <v-btn
+              elevation="0"
+              class="mb-5 white--text"
+              color="#0F4C75"
+              @click="tambahKelas"
+            >
+              Tambah
+            </v-btn>
+          </div>
         </v-form>
       </v-card-text>
     </v-card>
@@ -128,4 +136,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.form-sub {
+  color: black;
+  margin-bottom: 10px;
+}
+
+.create-class .button {
+  margin-top: 35px;
+}
+</style>
