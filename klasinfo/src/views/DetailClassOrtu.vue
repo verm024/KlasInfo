@@ -1,9 +1,26 @@
 <template>
-  <div class="container">
-    <h2>Detail Kelas buat ortu</h2>
-
-    <AssignmentClassOrtu />
-    <ScoreClassOrtu />
+  <div class="container mt-12 mb-16">
+    <div class="d-flex align-center justify-space-between">
+      <div class="page-title">
+        {{ data_kelas.nama }}
+      </div>
+    </div>
+    <div class="mt-10">
+      <v-card color="basil">
+        <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
+          <v-tab>Tugas </v-tab>
+          <v-tab>Nilai </v-tab>
+        </v-tabs>
+        <v-tabs-items v-model="tab">
+          <v-tab-item class="pa-10">
+            <AssignmentClassOrtu />
+          </v-tab-item>
+          <v-tab-item class="pa-10">
+            <ScoreClassOrtu />
+          </v-tab-item>
+        </v-tabs-items>
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -18,7 +35,8 @@ import ScoreClassOrtu from "../components/ScoreClassOrtu";
 export default {
   data() {
     return {
-      data_kelas: []
+      data_kelas: [],
+      tab: null
     };
   },
   watch: {
@@ -45,7 +63,6 @@ export default {
       .doc(to.params.id)
       .get();
     if (doc.exists) {
-      console.log(store.state.currentAnak);
       let doc2 = await firebase.db
         .collection("join")
         .where("kelas", "==", firebase.db.collection("kelas").doc(to.params.id))

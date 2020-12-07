@@ -1,36 +1,34 @@
 <template>
-  <div class="container">
-    <v-card color="basil">
-      <div class="detail-class">
-        Detail tentang kelas, seperti apa aja yg bisa dilakukan di kelas itu
-        (buat guru)
-        <br />
-        Nama kelas: {{ data_kelas.nama }}
+  <div class="container mt-12 mb-16">
+    <div class="d-flex align-center justify-space-between">
+      <div class="page-title">
+        {{ data_kelas.nama }}
       </div>
-
-      <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
-        <v-tab>Pengaturan Kelas </v-tab>
-        <v-tab>Anggota Kelas </v-tab>
-        <v-tab>Tugas </v-tab>
-        <v-tab>Nilai </v-tab>
-      </v-tabs>
-
-      <v-tabs-items v-model="tab">
-        <v-tab-item>
-          <SettingClass :data_kelas="data_kelas" />
-        </v-tab-item>
-
-        <v-tab-item>
-          <MemberClass />
-        </v-tab-item>
-        <v-tab-item>
-          <AssignmentClass />
-        </v-tab-item>
-        <v-tab-item>
-          <ScoreClass />
-        </v-tab-item>
-      </v-tabs-items>
-    </v-card>
+    </div>
+    <div class="mt-10">
+      <v-card color="basil">
+        <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
+          <v-tab>Pengaturan Kelas </v-tab>
+          <v-tab>Anggota Kelas </v-tab>
+          <v-tab>Tugas </v-tab>
+          <v-tab>Nilai </v-tab>
+        </v-tabs>
+        <v-tabs-items v-model="tab">
+          <v-tab-item class="pa-10">
+            <SettingClass :data_kelas="data_kelas" />
+          </v-tab-item>
+          <v-tab-item class="pa-10">
+            <MemberClass />
+          </v-tab-item>
+          <v-tab-item class="pa-10">
+            <AssignmentClass />
+          </v-tab-item>
+          <v-tab-item class="pa-10">
+            <ScoreClass />
+          </v-tab-item>
+        </v-tabs-items>
+      </v-card>
+    </div>
   </div>
 </template>
 

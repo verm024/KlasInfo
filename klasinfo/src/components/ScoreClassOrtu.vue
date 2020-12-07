@@ -18,8 +18,8 @@
         ></v-text-field>
       </template>
 
-      // eslint-disable-next-line
-      <template v-slot:body.append></template>
+      <!-- // eslint-disable-next-line
+      <template v-slot:body.append></template> -->
     </v-data-table>
   </v-container>
 </template>
