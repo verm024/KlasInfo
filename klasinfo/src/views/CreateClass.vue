@@ -1,5 +1,5 @@
 <template>
-  <div class="create-class">
+  <div class="create-class container">
     <v-card>
       <v-card-text>
         <div class="title text-center mb-5">KELAS BARU</div>

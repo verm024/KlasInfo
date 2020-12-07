@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h2>Detail Kelas buat ortu</h2>
 
     <AssignmentClassOrtu />

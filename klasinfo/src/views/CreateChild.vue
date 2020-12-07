@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <v-card class="mx-auto px-10 py-5 my-12" max-width="500" min-height="350">
       <v-card-text>
         <div class="title text-center mb-5">TAMBAH ANAK</div>

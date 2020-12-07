@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="ortu">
+    <div class="ortu container">
       <div>
         <h1>Dashboard ortu</h1>
       </div>
