@@ -33,7 +33,7 @@
         </v-btn>
         <v-btn v-if="currentUser" @click="logout" text>
           <span class="mr-2">Logout</span>
-          <v-icon>mdi-open-in-new</v-icon>
+          <v-icon>mdi-logout</v-icon>
         </v-btn>
       </v-list>
       <v-menu class="hidden-md-and-up" bottom left>
@@ -61,11 +61,12 @@
           </v-btn>
           <v-btn v-if="currentUser" @click="logout" text>
             <span class="mr-2">Logout</span>
-            <v-icon>mdi-open-in-new</v-icon>
+            <v-icon>mdi-logout</v-icon>
           </v-btn>
         </v-list>
       </v-menu>
     </v-app-bar>
+    <!-- <Navbar /> -->
 
     <v-main>
       <router-view></router-view>
@@ -76,6 +77,7 @@
 <script>
 import firebase from "./firebase";
 import { mapState } from "vuex";
+// import Navbar from "@/components/Navbar";
 
 export default {
   name: "App",
@@ -83,6 +85,9 @@ export default {
   data() {
     return {};
   },
+  // components: {
+  //   Navbar
+  // },
   methods: {
     async logout() {
       try {
@@ -100,3 +105,14 @@ export default {
   }
 };
 </script>
+
+<style>
+a {
+  text-decoration: none;
+}
+
+.page-title {
+  font-size: 30px !important;
+  font-weight: bold;
+}
+</style>

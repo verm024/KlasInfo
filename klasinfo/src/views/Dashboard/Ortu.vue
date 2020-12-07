@@ -1,59 +1,63 @@
 <template>
   <v-container>
-    <div class="ortu container">
-      <div>
-        <h1>Dashboard ortu</h1>
+    <div class="ortu container mt-12 mb-16">
+      <div class="d-flex align-center justify-space-between">
+        <div class="page-title">
+          Dashboard
+        </div>
+        <v-btn outlined color="#27496d" @click.stop="dialog = true"
+          >Gabung Kelas</v-btn
+        >
       </div>
-      <v-row>
-        <v-col cols="auto">
-          <v-sheet>
-            <v-form class="mt-20" ref="form" lazy-validation>
-              <v-text-field
-                style="min-width: 170px max-width: 300px"
-                v-model="code"
-                label="Kode Kelas"
-                type="text"
-                outlined
-              ></v-text-field>
-              <v-btn
-                class="white--text block"
-                color="#27496d"
-                @click="joinClass"
-              >
-                Join class
-              </v-btn>
-            </v-form>
-          </v-sheet>
-        </v-col>
-        <v-col>
-          <v-sheet>
-            <!-- <div style="max-width: fit-content"> -->
-            <div
-              class="d-inline-block"
-              v-for="(item, index) in daftar_kelas"
-              :key="index"
-            >
-              <v-card
-                class="mr-10 mb-10"
-                @click="$router.push(`/ortu/class/${item.kelas.id}`)"
-                max-width="300px"
-              >
-                <v-img :src="item.kelas.foto" height="200px"></v-img>
+      <div class="text-center">
+        <div
+          class="mt-10 d-inline-block"
+          v-for="(item, index) in daftar_kelas"
+          :key="index"
+        >
+          <v-card
+            class="mr-10 ml-10 text-left"
+            @click="$router.push(`/ortu/class/${item.kelas.id}`)"
+            width="300px"
+            rounded="xl"
+          >
+            <v-img :src="item.kelas.foto" height="180px"
+              ><v-overlay absolute opacity="0.2"></v-overlay
+            ></v-img>
 
-                <v-card-title>
-                  {{ item.kelas.nama }}
-                </v-card-title>
+            <v-card-title>
+              {{ item.kelas.nama }}
+            </v-card-title>
 
-                <v-card-subtitle>
-                  Kode Kelas: {{ item.kelas.id }}
-                </v-card-subtitle>
-              </v-card>
-            </div>
-            <!-- </div> -->
-          </v-sheet>
-        </v-col>
-      </v-row>
+            <v-card-subtitle> Kode Kelas: {{ item.kelas.id }} </v-card-subtitle>
+          </v-card>
+        </div>
+      </div>
     </div>
+    <v-dialog v-model="dialog" max-width="290">
+      <v-card class="mx-auto">
+        <v-card-text class="py-10 px-10">
+          <div class="title text-center mb-5">Gabung Kelas</div>
+          <v-text-field
+            v-model="code"
+            label="Kode Kelas"
+            dense
+            outlined
+          ></v-text-field>
+
+          <div class="button text-center">
+            <v-btn
+              elevation="0"
+              class="mb-5 white--text"
+              color="#0F4C75"
+              @click="joinClass"
+            >
+              Gabung
+            </v-btn>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -66,7 +70,8 @@ export default {
   data() {
     return {
       code: "",
-      daftar_kelas: []
+      daftar_kelas: [],
+      dialog: false
     };
   },
   computed: {

@@ -1,27 +1,28 @@
 <template>
-  <div class="guru container">
-    <!-- <Navbar /> -->
-    <div>
-      Dashboard Guru
+  <div class="guru container mt-12 mb-16">
+    <div class="d-flex align-center justify-space-between">
+      <div class="page-title">
+        Dashboard
+      </div>
+      <v-btn outlined color="#27496d" @click="$router.push('/create-class')"
+        >Tambah Kelas</v-btn
+      >
     </div>
-    <v-btn
-      class="white--text"
-      color="#27496d"
-      @click="$router.push('/create-class')"
-      >Tambah Kelas</v-btn
-    >
-    <div style="max-width: fit-content">
+    <div class="text-center">
       <div
         class="mt-10 d-inline-block"
         v-for="(item, index) in daftar_kelas"
         :key="index"
       >
         <v-card
-          class="mr-10"
+          class="mr-10 ml-10 text-left"
           @click="$router.push(`/guru/class/${item.id}`)"
-          max-width="300px"
+          width="300px"
+          rounded="xl"
         >
-          <v-img :src="item.foto" height="200px"></v-img>
+          <v-img :src="item.foto" height="180px"
+            ><v-overlay absolute opacity="0.2"></v-overlay
+          ></v-img>
 
           <v-card-title>
             {{ item.nama }}
@@ -37,7 +38,6 @@
 <script>
 import firebase from "@/firebase";
 import { mapState } from "vuex";
-import Navbar from "@/components/Navbar";
 
 export default {
   data() {
@@ -45,9 +45,6 @@ export default {
       daftar_kelas: []
     };
   },
-  // components: {
-  //   Navbar
-  // },
   computed: {
     ...mapState(["currentUser"])
   },
@@ -72,4 +69,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>
