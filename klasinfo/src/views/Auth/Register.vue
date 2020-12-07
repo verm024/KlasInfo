@@ -61,6 +61,7 @@
 <script>
 import firebase from "../../firebase";
 import { User } from "../../classes";
+import validator from "validator";
 
 export default {
   data() {
@@ -68,6 +69,8 @@ export default {
       form_register: {
         email: "",
         password: "",
+        nama: "",
+        notelp: "",
         role: "ortu"
       },
       items: [
@@ -85,39 +88,61 @@ export default {
   methods: {
     async register() {
       let registerData;
-      if (this.form_register.role == "guru") {
-        registerData = {
-          email: this.form_register.email,
-          role: this.form_register.role
-        };
-      } else if (this.form_register.role == "ortu") {
-        registerData = {
-          email: this.form_register.email,
-          role: this.form_register.role
-        };
-      }
-      let user;
-      try {
-        user = await firebase.auth.createUserWithEmailAndPassword(
-          this.form_register.email,
-          this.form_register.password
+      if (
+        validator.isEmail(this.form_register.email) &&
+        this.form_register.password.length >= 6 &&
+        this.form_register.password.length <= 20
+      ) {
+        if (this.form_register.nama == "" || this.form_register.notelp == "") {
+          alert("Form Nama dan Nomor Telepon tidak boleh kosong!");
+        } else {
+          if (this.form_register.role == "guru") {
+            registerData = {
+              email: this.form_register.email,
+              nama: this.form_register.nama,
+              notelp: this.form_register.notelp,
+              role: this.form_register.role
+            };
+          } else if (this.form_register.role == "ortu") {
+            registerData = {
+              email: this.form_register.email,
+              nama: this.form_register.nama,
+              notelp: this.form_register.notelp,
+              role: this.form_register.role
+            };
+          }
+          let user;
+          try {
+            user = await firebase.auth.createUserWithEmailAndPassword(
+              this.form_register.email,
+              this.form_register.password
+            );
+          } catch (error) {
+            console.error(error);
+            if (error.code.includes("email-already-in-use")) {
+              alert("Email sudah pernah dipakai");
+            }
+            return;
+          }
+          user = user.user;
+          try {
+            await firebase.db
+              .collection("users")
+              .doc(user.uid)
+              .set(registerData);
+          } catch (error) {
+            console.error(error);
+          }
+          this.$store.commit("setCurrentUser", new User(user));
+          await this.$store.dispatch("fetchUserProfile");
+          await this.$store.dispatch("fetchCurrentAnak");
+          this.$router.push("/" + this.form_register.role);
+        }
+      } else {
+        alert(
+          "Format email harus sesuai dengan yang telah ditentukan dan panjang password harus antara 6 hingga 20 karakter"
         );
-      } catch (error) {
-        console.error(error);
       }
-      user = user.user;
-      try {
-        await firebase.db
-          .collection("users")
-          .doc(user.uid)
-          .set(registerData);
-      } catch (error) {
-        console.error(error);
-      }
-      this.$store.commit("setCurrentUser", new User(user));
-      await this.$store.dispatch("fetchUserProfile");
-      await this.$store.dispatch("fetchCurrentAnak");
-      this.$router.push("/" + this.form_register.role);
     }
   }
 };

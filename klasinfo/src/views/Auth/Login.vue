@@ -36,6 +36,7 @@
 <script>
 import firebase from "../../firebase";
 import { User } from "../../classes";
+import validator from "validator";
 
 export default {
   data() {
@@ -49,21 +50,36 @@ export default {
   methods: {
     async login() {
       let user;
-      try {
-        user = await firebase.auth.signInWithEmailAndPassword(
-          this.form_login.email,
-          this.form_login.password
-        );
-      } catch (error) {
-        console.error(error);
-      }
-      if (user) {
-        user = user.user;
-        this.$store.commit("setCurrentUser", new User(user));
-        await this.$store.dispatch("fetchUserProfile");
-        await this.$store.dispatch("fetchCurrentAnak");
-        this.$router.push(
-          "/" + this.$store.state.currentUser.getUserProfile().role
+      if (
+        validator.isEmail(this.form_login.email) &&
+        this.form_login.password.length >= 6 &&
+        this.form_login.password.length <= 20
+      ) {
+        try {
+          user = await firebase.auth.signInWithEmailAndPassword(
+            this.form_login.email,
+            this.form_login.password
+          );
+        } catch (error) {
+          if (error.code.includes("wrong-password")) {
+            alert("Password salah!");
+          } else if (error.code.includes("user-not-found")) {
+            alert("Pastikan email yang anda masukkan sudah benar");
+          }
+          console.error(error);
+        }
+        if (user) {
+          user = user.user;
+          this.$store.commit("setCurrentUser", new User(user));
+          await this.$store.dispatch("fetchUserProfile");
+          await this.$store.dispatch("fetchCurrentAnak");
+          this.$router.push(
+            "/" + this.$store.state.currentUser.getUserProfile().role
+          );
+        }
+      } else {
+        alert(
+          "Format email harus sesuai dengan yang telah ditentukan dan panjang password harus antara 6 hingga 20 karakter"
         );
       }
     }
