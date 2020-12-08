@@ -128,6 +128,7 @@ export default {
             .collection("anak")
         ).then(() => {
           this.current_anak = this.currentAnak.getAnak();
+          this.daftar_anak.push({ nama: "Tambah Anak" });
         });
       }
     }
@@ -181,21 +182,26 @@ export default {
       }
     },
     async handleChangeAnak(val) {
-      let t = JSON.parse(JSON.stringify(val));
-      t.id = val.id;
-      this.$store.commit("setCurrentAnak", new Anak(t));
-      this.$bind(
-        "daftar_kelas",
-        firebase.db.collection("join").where(
-          "anak",
-          "==",
-          firebase.db
-            .collection("users")
-            .doc(this.currentUser.getUid())
-            .collection("anak")
-            .doc(store.state.currentAnak.getId())
-        )
-      );
+      if (val.nama == "Tambah Anak") {
+        this.$router.push("/create-child");
+      } else {
+        let t = JSON.parse(JSON.stringify(val));
+        t.id = val.id;
+        this.$store.commit("setCurrentAnak", new Anak(t));
+        this.$unbind("daftar_kelas");
+        this.$bind(
+          "daftar_kelas",
+          firebase.db.collection("join").where(
+            "anak",
+            "==",
+            firebase.db
+              .collection("users")
+              .doc(this.currentUser.getUid())
+              .collection("anak")
+              .doc(store.state.currentAnak.getId())
+          )
+        );
+      }
     }
   }
 };

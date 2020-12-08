@@ -1,9 +1,10 @@
 <template>
   <div class="container mt-12 mb-16">
-    <div class="d-flex align-center justify-space-between">
+    <div>
       <div class="page-title">
         {{ data_kelas.nama }}
       </div>
+      <div class="text-h7">{{ currentAnak.getAnak().nama }}</div>
     </div>
     <div class="mt-10">
       <v-card color="basil">
@@ -61,7 +62,7 @@ export default {
     ScheduleClassOrtu
   },
   computed: {
-    ...mapState(["currentUser"])
+    ...mapState(["currentUser", "currentAnak"])
   },
   async beforeRouteEnter(to, from, next) {
     let doc = await firebase.db

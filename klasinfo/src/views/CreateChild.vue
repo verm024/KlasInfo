@@ -3,7 +3,7 @@
     <v-card class="mx-auto px-10 py-5 my-12" max-width="500" min-height="350">
       <v-card-text>
         <div class="title text-center mb-5">Tambah Anak</div>
-        <v-form class="ma-40" ref="form" v-model="valid" lazy-validation>
+        <v-form class="ma-40" ref="form">
           <v-text-field
             v-model="form_anak.nama"
             label="Nama Anak"

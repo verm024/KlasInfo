@@ -1,18 +1,29 @@
 <template>
   <v-card>
-    Nilai Tugas {{ current_tugas.nama }}
+    <div class="text-center text-h4 mb-5">
+      Nilai Tugas: {{ current_tugas.nama }}
+    </div>
+    <v-container>
+      <v-row>
+        <v-col><div align="right">Pilih Tugas:</div></v-col>
+        <v-col>
+          <div max-width="100">
+            <v-select
+              :items="daftar_tugas"
+              return-object
+              item-text="nama"
+              v-model="current_tugas"
+              @change="handleChangeTugas"
+            ></v-select>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
     <div v-for="(item, index) in daftar_nilai" :key="index">
       {{ item.anak.nama }} - {{ item.nilai }}
       <input type="number" v-model="item.nilai" />
       <button @click="saveNilai(index)">Save</button>
     </div>
-    <v-select
-      :items="daftar_tugas"
-      return-object
-      item-text="nama"
-      v-model="current_tugas"
-      @change="handleChangeTugas"
-    ></v-select>
   </v-card>
 </template>
 

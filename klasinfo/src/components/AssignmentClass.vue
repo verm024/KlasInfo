@@ -1,67 +1,65 @@
 <template>
   <v-container>
+    <div class="text-center text-h4 mb-5">Daftar Tugas</div>
     <!-- Form tambah tugas -->
-    <v-form>
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="tugas_baru.nama"
-            label="Nama Tugas"
-          ></v-text-field>
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="tugas_baru.deskripsi"
-            label="Deskripsi Tugas"
-          ></v-text-field>
-        </v-col>
-        <v-col>
-          <label for="file_input">Pilih dokumen soal:</label>
-          <input
-            type="file"
-            id="file_input"
-            name="file_input"
-            accept="image/*, application/pdf"
-            @change="handleChangeFile"
-          />
-        </v-col>
-        <v-col>
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="tugas_baru.deadline"
-                label="Tenggat Waktu Tugas"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
+    <h3 class="mb-2">Buat Tugas Baru</h3>
+    <v-card>
+      <v-form class="pa-5 mb-3">
+        <v-text-field
+          v-model="tugas_baru.nama"
+          label="Nama Tugas"
+          outlined
+        ></v-text-field>
+        <v-textarea
+          v-model="tugas_baru.deskripsi"
+          label="Deskripsi Tugas"
+          outlined
+        ></v-textarea>
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
               v-model="tugas_baru.deadline"
-              scrollable
-              :min="min_date"
-              locale="id-ID"
-            >
-              <v-btn text @click="menu = false">Cancel</v-btn>
-              <v-btn text @click="$refs.menu.save(tugas_baru.deadline)"
-                >Ok</v-btn
-              >
-            </v-date-picker>
-          </v-menu>
-        </v-col>
-        <v-col>
-          <v-btn @click="tambahTugas">Tambah</v-btn>
-        </v-col>
-      </v-row>
-    </v-form>
+              label="Tenggat Waktu Tugas"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="tugas_baru.deadline"
+            scrollable
+            :min="min_date"
+            locale="id-ID"
+          >
+            <v-btn text @click="menu = false">Cancel</v-btn>
+            <v-btn text @click="$refs.menu.save(tugas_baru.deadline)">Ok</v-btn>
+          </v-date-picker>
+        </v-menu>
+
+        <label for="file_input">Pilih dokumen soal: </label>
+        <input
+          class="mb-4"
+          type="file"
+          id="file_input"
+          name="file_input"
+          accept="image/*, application/pdf"
+          @change="handleChangeFile"
+        />
+        <div align="center">
+          <v-btn class="white--text" color="#3282b8" @click="tambahTugas"
+            >Tambah</v-btn
+          >
+        </div>
+      </v-form>
+    </v-card>
     <!-- <div>
       <input type="text" placeholder="Nama Tugas" v-model="tugas_baru.nama" />
       <input
@@ -79,7 +77,7 @@
     </div> -->
 
     <!-- Daftar Tugas -->
-    <h3 class="mb-5">Daftar Tugas</h3>
+    <h3 class="mt-8 mb-3">Daftar Tugas Lama</h3>
     <div>
       <v-data-table
         :headers="headers"
