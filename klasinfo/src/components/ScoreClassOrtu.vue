@@ -1,25 +1,37 @@
 <template>
   <v-container>
-    <h3>Daftar Perolehan Nilai</h3>
+    <h3 class="mb-5">Daftar Perolehan Nilai</h3>
     <v-data-table
       :headers="headers"
       :items="daftar_nilai"
       item-key="index"
       :search="search"
       :items-per-page="5"
-      :custom-filter="filterOnlyLowerCase"
       class="elevation-2"
     >
       <template v-slot:top>
         <v-text-field
           v-model="search"
-          label="Cari nama tugas (lower case)"
-          class="mx-4"
+          label="Cari Tugas"
+          class="mx-4 px-5 pt-7"
         ></v-text-field>
       </template>
-
-      <!-- // eslint-disable-next-line
-      <template v-slot:body.append></template> -->
+      <template v-slot:item="{ item }">
+        <tr v-if="item.tugas.deadline">
+          <td>
+            {{ item.tugas.nama }}
+          </td>
+          <td>
+            {{ formatDate(item.tugas.deadline.seconds) }}
+          </td>
+          <td>
+            {{ item.nilai }}
+          </td>
+        </tr>
+      </template>
+      <template v-slot:no-data>
+        Belum ada nilai
+      </template>
     </v-data-table>
   </v-container>
 </template>
@@ -43,8 +55,14 @@ export default {
         {
           text: "Nama Tugas",
           align: "start",
-          sortable: false,
+          sortable: true,
           value: "tugas.nama"
+        },
+        {
+          text: "Batas Waktu",
+          align: "start",
+          sortable: true,
+          value: "tugas.deadline"
         },
         {
           text: "Nilai",
@@ -52,6 +70,32 @@ export default {
           value: "nilai"
         }
       ];
+    }
+  },
+  methods: {
+    formatDate(timestamp) {
+      let date = new Date(timestamp * 1000);
+      let month = date.getMonth();
+      let year = date.getFullYear();
+      let months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+      ];
+      date = date.getDate();
+      if (date < 10) {
+        date = "0" + date;
+      }
+      return date + " " + months[month] + " " + year;
     }
   },
   watch: {
@@ -88,19 +132,6 @@ export default {
           }
         });
       }
-    }
-  },
-  methods: {
-    filterOnlyLowerCase(value, search, item) {
-      return (
-        value != null &&
-        search != null &&
-        typeof value === "string" &&
-        value
-          .toString()
-          .toLocaleLowerCase()
-          .indexOf(search) !== -1
-      );
     }
   }
 };

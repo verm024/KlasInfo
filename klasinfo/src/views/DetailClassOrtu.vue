@@ -8,10 +8,14 @@
     <div class="mt-10">
       <v-card color="basil">
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
+          <v-tab>Jadwal </v-tab>
           <v-tab>Tugas </v-tab>
           <v-tab>Nilai </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
+          <v-tab-item class="pa-10">
+            <ScheduleClassOrtu :jadwal="data_kelas.jadwal" />
+          </v-tab-item>
           <v-tab-item class="pa-10">
             <AssignmentClassOrtu />
           </v-tab-item>
@@ -31,6 +35,7 @@ import { mapState } from "vuex";
 
 import AssignmentClassOrtu from "../components/AssignmentClassOrtu";
 import ScoreClassOrtu from "../components/ScoreClassOrtu";
+import ScheduleClassOrtu from "../components/ScheduleClassOrtu";
 
 export default {
   data() {
@@ -52,7 +57,8 @@ export default {
   },
   components: {
     AssignmentClassOrtu,
-    ScoreClassOrtu
+    ScoreClassOrtu,
+    ScheduleClassOrtu
   },
   computed: {
     ...mapState(["currentUser"])

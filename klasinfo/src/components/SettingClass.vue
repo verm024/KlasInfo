@@ -1,22 +1,81 @@
 <template>
-  <v-card>
-    Form Setting kelas:
-    <input type="text" v-model="edit_data_kelas.nama" />
-    <input type="text" v-model="edit_data_kelas.deskripsi" />
-    <input type="file" @change="handleChangeFile" />
-    <div v-for="(item, index) in jadwal" :key="index">
-      <v-form lazy-validation>
-        <input type="text" v-model="item.hari" />
-        <input type="text" v-model="item.jam_mulai" />
-        <input type="text" v-model="item.jam_selesai" />
-        <button @click.prevent="deleteRow(index)">Hapus</button>
-      </v-form>
+  <div>
+    <div class="text-center text-h4">Form Pengaturan Kelas</div>
+    <div align="center" class="mx-12 mt-5">
+      <v-img :src="edit_data_kelas.foto" max-width="200px"
+        ><v-overlay absolute opacity="0.2"></v-overlay
+      ></v-img>
+      <div align="left">
+        Ganti gambar:
+        <input class="my-7" type="file" @change="handleChangeFile" />
+      </div>
+      <v-text-field
+        v-model="edit_data_kelas.nama"
+        label="Nama Kelas"
+        outlined
+      ></v-text-field>
+      <v-textarea
+        v-model="edit_data_kelas.deskripsi"
+        label="Deskripsi"
+        outlined
+      ></v-textarea>
     </div>
-    <button @click="jadwal.push({ hari: '', jam_mulai: '', jam_selesai: '' })">
-      Tambah
-    </button>
-    <v-btn @click="saveChanges">Save</v-btn>
-  </v-card>
+
+    <div class="text-center text-h5">Jadwal Kelas</div>
+    <div class="my-5" align="center">
+      <v-btn
+        class="white--text"
+        color="#3282b8"
+        @click="jadwal.push({ hari: '', jam_mulai: '', jam_selesai: '' })"
+      >
+        Tambah
+      </v-btn>
+      <v-simple-table class="mx-12 mt-5" fixed-header height="300px">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                Hari
+              </th>
+              <th class="text-left">
+                Jam Mulai
+              </th>
+              <th class="text-left">
+                Jam Selesai
+              </th>
+              <th class="text-left">
+                Opsi
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in jadwal" :key="index">
+              <td>
+                <v-text-field type="text" v-model="item.hari" />
+              </td>
+              <td>
+                <v-text-field type="text" v-model="item.jam_mulai" />
+              </td>
+              <td>
+                <v-text-field type="text" v-model="item.jam_selesai" />
+              </td>
+              <td>
+                <v-btn
+                  class="white--text"
+                  color="red"
+                  @click.prevent="deleteRow(index)"
+                  >Hapus</v-btn
+                >
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <v-btn class="white--text mb-5" color="#3282b8" @click="saveChanges"
+        >Simpan</v-btn
+      >
+    </div>
+  </div>
 </template>
 
 <script>

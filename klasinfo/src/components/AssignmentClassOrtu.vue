@@ -1,35 +1,47 @@
 <template>
   <div>
     <v-container>
-      <h3>Tugas Belum Selesai</h3>
-      <v-simple-table class="elevation-2">
-        <thead>
+      <h3 class="mb-5">Tugas Belum Selesai</h3>
+      <v-data-table
+        :headers="headers"
+        :items="filterOngoing"
+        :items-per-page="5"
+        item-key="index"
+        class="elevation-2"
+      >
+        <template v-slot:item="{ item }">
           <tr>
-            <th>Nama Tugas</th>
-            <th>Deskripsi</th>
-            <th>Aksi</th>
+            <td>
+              {{ item.nama }}
+            </td>
+            <td>
+              {{ item.deskripsi }}
+            </td>
+            <td>
+              {{ formatDate(item.deadline.seconds) }}
+            </td>
+            <td>
+              <v-btn
+                class="white--text"
+                color="#27496d"
+                :href="item.dokumen"
+                target="_blank"
+                small
+              >
+                <v-icon left>mdi-file-download</v-icon>
+                Unduh
+              </v-btn>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in filterOngoing" :key="'ongoing-' + index">
-            <td>{{ item.nama }}</td>
-            <td>{{ item.deskripsi }}</td>
-            <v-btn
-              class="white--text"
-              color="#27496d"
-              :href="item.dokumen"
-              target="_blank"
-            >
-              <v-icon left>mdi-file-download</v-icon>
-              Berkas
-            </v-btn>
-          </tr>
-        </tbody>
-      </v-simple-table>
+        </template>
+
+        <template v-slot:no-data>
+          Belum ada tugas
+        </template>
+      </v-data-table>
     </v-container>
-    <v-spacer></v-spacer>
-    <v-container>
-      <h3>Tugas Sudah Selesai</h3>
+    <v-container class="mt-4">
+      <h3 class="mb-5">Tugas Sudah Selesai</h3>
       <v-data-table
         :headers="headers"
         :items="filterSelesai"
@@ -37,17 +49,34 @@
         item-key="index"
         class="elevation-2"
       >
-        // eslint-disable-next-line
-        <template v-slot:item.controls="{ item }">
-          <v-btn
-            class="white--text"
-            color="#27496d"
-            :href="item.dokumen"
-            target="_blank"
-          >
-            <v-icon left>mdi-file-download</v-icon>
-            Berkas
-          </v-btn>
+        <template v-slot:item="{ item }">
+          <tr>
+            <td>
+              {{ item.nama }}
+            </td>
+            <td>
+              {{ item.deskripsi }}
+            </td>
+            <td>
+              {{ formatDate(item.deadline.seconds) }}
+            </td>
+            <td>
+              <v-btn
+                class="white--text"
+                color="#27496d"
+                :href="item.dokumen"
+                target="_blank"
+                small
+              >
+                <v-icon left>mdi-file-download</v-icon>
+                Unduh
+              </v-btn>
+            </td>
+          </tr>
+        </template>
+
+        <template v-slot:no-data>
+          Belum ada tugas
         </template>
       </v-data-table>
     </v-container>
@@ -79,6 +108,32 @@ export default {
       }
     }
   },
+  methods: {
+    formatDate(timestamp) {
+      let date = new Date(timestamp * 1000);
+      let month = date.getMonth();
+      let year = date.getFullYear();
+      let months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+      ];
+      date = date.getDate();
+      if (date < 10) {
+        date = "0" + date;
+      }
+      return date + " " + months[month] + " " + year;
+    }
+  },
   computed: {
     filterSelesai() {
       return this.daftar_tugas.filter(element => {
@@ -104,7 +159,12 @@ export default {
           value: "deskripsi"
         },
         {
-          text: "Aksi",
+          text: "Batas Waktu",
+          sortable: true,
+          value: "deadline"
+        },
+        {
+          text: "Berkas",
           sortable: false,
           value: "controls"
         }
