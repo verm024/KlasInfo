@@ -5,9 +5,28 @@
         <div class="page-title">
           Dashboard
         </div>
-        <v-btn outlined color="#27496d" @click.stop="dialog = true"
-          >Gabung Kelas</v-btn
-        >
+        <div class="d-flex align-center">
+          <v-select
+            @change="handleChangeAnak"
+            style="width: 300px"
+            return-object
+            :items="daftar_anak"
+            v-model="current_anak"
+            item-text="nama"
+            outlined
+            color="#27496d"
+            dense
+            hide-details="auto"
+          >
+          </v-select>
+          <v-btn
+            height="40px"
+            class="white--text ml-5"
+            color="#27496d"
+            @click.stop="dialog = true"
+            >Gabung Kelas</v-btn
+          >
+        </div>
       </div>
       <div class="text-center">
         <div
@@ -19,7 +38,7 @@
             class="mr-10 ml-10 text-left"
             @click="$router.push(`/ortu/class/${item.kelas.id}`)"
             width="300px"
-            rounded="xl"
+            rounded="l"
           >
             <v-img :src="item.kelas.foto" height="180px"
               ><v-overlay absolute opacity="0.2"></v-overlay
@@ -65,12 +84,15 @@
 import firebase from "@/firebase";
 import store from "@/store";
 import { mapState } from "vuex";
+import { Anak } from "@/classes";
 
 export default {
   data() {
     return {
       code: "",
       daftar_kelas: [],
+      daftar_anak: [],
+      current_anak: "",
       dialog: false
     };
   },
@@ -93,6 +115,20 @@ export default {
               .doc(store.state.currentAnak.getId())
           )
         );
+      }
+    },
+    get_daftar_anak: {
+      immediate: true,
+      handler() {
+        this.$bind(
+          "daftar_anak",
+          firebase.db
+            .collection("users")
+            .doc(this.currentUser.getUid())
+            .collection("anak")
+        ).then(() => {
+          this.current_anak = this.currentAnak.getAnak();
+        });
       }
     }
   },
@@ -143,6 +179,23 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    async handleChangeAnak(val) {
+      let t = JSON.parse(JSON.stringify(val));
+      t.id = val.id;
+      this.$store.commit("setCurrentAnak", new Anak(t));
+      this.$bind(
+        "daftar_kelas",
+        firebase.db.collection("join").where(
+          "anak",
+          "==",
+          firebase.db
+            .collection("users")
+            .doc(this.currentUser.getUid())
+            .collection("anak")
+            .doc(store.state.currentAnak.getId())
+        )
+      );
     }
   }
 };

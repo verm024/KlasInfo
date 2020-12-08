@@ -19,14 +19,14 @@
 
           <v-text-field
             v-model="form_register.nama"
-            label="Full Name"
+            label="Nama Lengkap"
             type="text"
             outlined
           ></v-text-field>
 
           <v-text-field
             v-model="form_register.notelp"
-            label="Phone Number"
+            label="Nomor Telepon"
             type="text"
             outlined
           ></v-text-field>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <div class="text-center text-h4">Form Pengaturan Kelas</div>
     <div align="center" class="mx-12 mt-5">
       <v-img :src="edit_data_kelas.foto" max-width="200px"
@@ -22,10 +22,10 @@
     </div>
 
     <div class="text-center text-h5">Jadwal Kelas</div>
-    <div class="my-5" align="center">
+    <div class="mt-5" align="center">
       <v-btn
-        class="white--text"
-        color="#3282b8"
+        outlined
+        color="#27496d"
         @click="jadwal.push({ hari: '', jam_mulai: '', jam_selesai: '' })"
       >
         Tambah
@@ -71,11 +71,11 @@
           </tbody>
         </template>
       </v-simple-table>
-      <v-btn class="white--text mb-5" color="#3282b8" @click="saveChanges"
+      <v-btn class="white--text" color="#3282b8" @click="saveChanges"
         >Simpan</v-btn
       >
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

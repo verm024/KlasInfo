@@ -1,9 +1,10 @@
 <template>
-  <div class="container mt-12 mb-16">
-    <div class="d-flex align-center justify-space-between">
+  <div class="container mt-5 mb-10">
+    <div>
       <div class="page-title">
         {{ data_kelas.nama }}
       </div>
+      <div class="text-h7">Kode kelas: {{ data_kelas.id }}</div>
     </div>
     <div class="mt-10">
       <v-card color="basil">

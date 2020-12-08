@@ -25,12 +25,16 @@
         >
           <v-btn text> Dashboard </v-btn>
         </router-link>
-        <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
-          <span class="mr-2">Login</span>
-        </v-btn>
-        <v-btn v-if="!currentUser" @click="$router.push('/register')" text>
-          <span class="mr-2">Register</span>
-        </v-btn>
+        <router-link to="/login">
+          <v-btn v-if="!currentUser" text>
+            <span class="mr-2">Login</span>
+          </v-btn>
+        </router-link>
+        <router-link to="/register">
+          <v-btn v-if="!currentUser" text>
+            <span class="mr-2">Register</span>
+          </v-btn>
+        </router-link>
         <v-btn v-if="currentUser" @click="logout" text>
           <span class="mr-2">Logout</span>
           <v-icon>mdi-logout</v-icon>
@@ -53,12 +57,16 @@
           >
             <v-btn text> Dashboard </v-btn>
           </router-link>
-          <v-btn v-if="!currentUser" @click="$router.push('/login')" text>
-            <span class="mr-2">Login</span>
-          </v-btn>
-          <v-btn v-if="!currentUser" @click="$router.push('/register')" text>
-            <span class="mr-2">Register</span>
-          </v-btn>
+          <router-link to="/login">
+            <v-btn v-if="!currentUser" text>
+              <span class="mr-2">Login</span>
+            </v-btn>
+          </router-link>
+          <router-link to="/register">
+            <v-btn v-if="!currentUser" text>
+              <span class="mr-2">Register</span>
+            </v-btn>
+          </router-link>
           <v-btn v-if="currentUser" @click="logout" text>
             <span class="mr-2">Logout</span>
             <v-icon>mdi-logout</v-icon>

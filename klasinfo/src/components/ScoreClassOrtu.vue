@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h3 class="mb-5">Daftar Perolehan Nilai</h3>
+    <h3 class="mb-5">Daftar Nilai</h3>
     <v-data-table
       :headers="headers"
       :items="daftar_nilai"

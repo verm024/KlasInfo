@@ -18,7 +18,7 @@
           class="mr-10 ml-10 text-left"
           @click="$router.push(`/guru/class/${item.id}`)"
           width="300px"
-          rounded="xl"
+          rounded="l"
         >
           <v-img :src="item.foto" height="180px"
             ><v-overlay absolute opacity="0.2"></v-overlay

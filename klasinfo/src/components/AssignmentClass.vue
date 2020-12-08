@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-container>
     <!-- Form tambah tugas -->
     <v-form>
       <v-row>
@@ -79,13 +79,47 @@
     </div> -->
 
     <!-- Daftar Tugas -->
-    <h3>Daftar Tugas:</h3>
+    <h3 class="mb-5">Daftar Tugas</h3>
     <div>
-      <div v-for="(item, index) in daftar_tugas" :key="index">
-        {{ item.nama }}
-      </div>
+      <v-data-table
+        :headers="headers"
+        :items="daftar_tugas"
+        :items-per-page="5"
+        item-key="index"
+        class="elevation-2"
+      >
+        <template v-slot:item="{ item }">
+          <tr>
+            <td>
+              {{ item.nama }}
+            </td>
+            <td>
+              {{ item.deskripsi }}
+            </td>
+            <td>
+              {{ formatDate(item.deadline.seconds) }}
+            </td>
+            <td>
+              <v-btn
+                class="white--text"
+                color="#27496d"
+                :href="item.dokumen"
+                target="_blank"
+                small
+              >
+                <v-icon left>mdi-file-download</v-icon>
+                Unduh
+              </v-btn>
+            </td>
+          </tr>
+        </template>
+
+        <template v-slot:no-data>
+          Belum ada tugas
+        </template>
+      </v-data-table>
     </div>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -181,6 +215,30 @@ export default {
         }
       }
     },
+    formatDate(timestamp) {
+      let date = new Date(timestamp * 1000);
+      let month = date.getMonth();
+      let year = date.getFullYear();
+      let months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+      ];
+      date = date.getDate();
+      if (date < 10) {
+        date = "0" + date;
+      }
+      return date + " " + months[month] + " " + year;
+    },
     handleChangeFile(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) {
@@ -192,6 +250,43 @@ export default {
       } else {
         this.dokumen = files[0];
       }
+    }
+  },
+  computed: {
+    // filterSelesai() {
+    //   return this.daftar_tugas.filter(element => {
+    //     return element.deadline <= firebase.timestamp;
+    //   });
+    // },
+    // filterOngoing() {
+    //   return this.daftar_tugas.filter(element => {
+    //     return element.deadline > firebase.timestamp;
+    //   });
+    // },
+    headers() {
+      return [
+        {
+          text: "Nama Tugas",
+          align: "start",
+          sortable: false,
+          value: "nama"
+        },
+        {
+          text: "Deskripsi",
+          sortable: false,
+          value: "deskripsi"
+        },
+        {
+          text: "Batas Waktu",
+          sortable: true,
+          value: "deadline"
+        },
+        {
+          text: "Berkas",
+          sortable: false,
+          value: "controls"
+        }
+      ];
     }
   }
 };

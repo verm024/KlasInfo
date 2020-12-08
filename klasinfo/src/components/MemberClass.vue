@@ -1,10 +1,29 @@
 <template>
-  <v-card>
-    Daftar Member:
-    <div v-for="(item, index) in daftar_member" :key="index">
-      {{ item.anak.nama }}
-    </div>
-  </v-card>
+  <v-container>
+    <div class="text-center text-h4 mb-5">Daftar Anggota Kelas</div>
+    <v-data-table
+      :headers="headers"
+      :items="daftar_member"
+      :items-per-page="5"
+      item-key="index"
+      class="elevation-2"
+    >
+      <template v-slot:item="{ item }">
+        <tr>
+          <td>
+            {{ item.anak.nama }}
+          </td>
+          <td>
+            {{ item.anak.nis }}
+          </td>
+        </tr>
+      </template>
+
+      <template v-slot:no-data>
+        Belum ada anggota
+      </template>
+    </v-data-table>
+  </v-container>
 </template>
 
 <script>
@@ -32,6 +51,34 @@ export default {
             )
         );
       }
+    }
+  },
+  computed: {
+    // filterSelesai() {
+    //   return this.daftar_member.filter(element => {
+    //     return element.deadline <= firebase.timestamp;
+    //   });
+    // },
+    // filterOngoing() {
+    //   return this.daftar_member.filter(element => {
+    //     return element.deadline > firebase.timestamp;
+    //   });
+    // },
+    headers() {
+      return [
+        {
+          text: "Nama Anak",
+          align: "start",
+          sortable: true,
+          value: "nama"
+        },
+        {
+          text: "Nomor Induk Sekolah",
+          align: "start",
+          sortable: true,
+          value: "nis"
+        }
+      ];
     }
   }
 };
