@@ -1,30 +1,53 @@
 <template>
-  <v-card>
+  <div>
     <div class="text-center text-h4 mb-5">
       Nilai Tugas: {{ current_tugas.nama }}
     </div>
-    <v-container>
-      <v-row>
-        <v-col><div align="right">Pilih Tugas:</div></v-col>
-        <v-col>
-          <div max-width="100">
-            <v-select
-              :items="daftar_tugas"
-              return-object
-              item-text="nama"
-              v-model="current_tugas"
-              @change="handleChangeTugas"
-            ></v-select>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-    <div v-for="(item, index) in daftar_nilai" :key="index">
-      {{ item.anak.nama }} - {{ item.nilai }}
-      <input type="number" v-model="item.nilai" />
-      <button @click="saveNilai(index)">Save</button>
+    <div class=" text-center d-flex align-center">
+      <div>
+        Pilih Tugas:
+      </div>
+      <div class="ml-3">
+        <v-select
+          style="width: 200px"
+          :items="daftar_tugas"
+          return-object
+          item-text="nama"
+          v-model="current_tugas"
+          @change="handleChangeTugas"
+        ></v-select>
+      </div>
     </div>
-  </v-card>
+    <v-data-table
+      :headers="headers"
+      :items="daftar_nilai"
+      :items-per-page="5"
+      item-key="index"
+      class="elevation-2"
+    >
+      <template v-slot:item="{ item, index }">
+        <tr>
+          <td>{{ item.anak.nama }}</td>
+          <td>
+            <v-text-field
+              style="width: 50px"
+              type="text"
+              v-model="item.nilai"
+            />
+          </td>
+          <td>
+            <v-btn class="white--text" color="#3282b8" @click="saveNilai(index)"
+              >Simpan</v-btn
+            >
+          </td>
+        </tr>
+      </template>
+
+      <template v-slot:no-data>
+        Belum ada anggota
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
@@ -37,7 +60,7 @@ export default {
       daftar_member: [],
       daftar_tugas: [],
       daftar_nilai: [],
-      current_tugas: ""
+      current_tugas: "",
     };
   },
   watch: {
@@ -54,7 +77,7 @@ export default {
               firebase.db.collection("kelas").doc(this.$route.params.id)
             )
         ).then(() => {
-          this.daftar_member.forEach(async element => {
+          this.daftar_member.forEach(async (element) => {
             try {
               let doc = await firebase.db
                 .collection("join")
@@ -68,13 +91,13 @@ export default {
                 dataNilai = {
                   ...element,
                   id: element.id,
-                  nilai: data.nilai
+                  nilai: data.nilai,
                 };
               } else {
                 dataNilai = {
                   ...element,
                   id: element.id,
-                  nilai: 0
+                  nilai: 0,
                 };
               }
               this.daftar_nilai.push(dataNilai);
@@ -83,7 +106,7 @@ export default {
             }
           });
         });
-      }
+      },
     },
     get_daftar_tugas: {
       immediate: true,
@@ -100,13 +123,13 @@ export default {
             this.current_tugas = this.daftar_tugas[0];
           }
         });
-      }
-    }
+      },
+    },
   },
   methods: {
     async handleChangeTugas() {
       this.daftar_nilai = [];
-      this.daftar_member.forEach(async element => {
+      this.daftar_member.forEach(async (element) => {
         try {
           let doc = await firebase.db
             .collection("join")
@@ -120,13 +143,13 @@ export default {
             dataNilai = {
               ...element,
               id: element.id,
-              nilai: data.nilai
+              nilai: data.nilai,
             };
           } else {
             dataNilai = {
               ...element,
               id: element.id,
-              nilai: 0
+              nilai: 0,
             };
           }
           this.daftar_nilai.push(dataNilai);
@@ -146,7 +169,7 @@ export default {
           .doc(this.$route.params.id)
           .collection("tugas")
           .doc(this.current_tugas.id),
-        tanggal_nilai: firebase.timestamp
+        tanggal_nilai: firebase.timestamp,
       };
       try {
         await firebase.db
@@ -160,9 +183,37 @@ export default {
         alert("Gagal memperbarui nilai");
         console.error(error);
       }
-    }
-  }
+    },
+  },
+  computed: {
+    headers() {
+      return [
+        {
+          text: "Nama Anak",
+          align: "start",
+          sortable: false,
+          value: "nama",
+        },
+        {
+          text: "Nilai",
+          align: "start",
+          sortable: true,
+          value: "nilai",
+        },
+        {
+          text: "Opsi",
+          align: "start",
+          sortable: false,
+          value: "simpan",
+        },
+      ];
+    },
+  },
 };
 </script>
 
-<style></style>
+<style scoped>
+.vuetable th#save {
+  width: 20%;
+}
+</style>

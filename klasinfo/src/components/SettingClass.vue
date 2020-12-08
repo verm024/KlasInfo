@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="text-center text-h4">Form Pengaturan Kelas</div>
+    <div class="text-center text-h4">Pengaturan Kelas</div>
     <div align="center" class="mx-12 mt-5">
       <v-img :src="edit_data_kelas.foto" max-width="200px"
         ><v-overlay absolute opacity="0.2"></v-overlay
@@ -92,14 +92,14 @@ export default {
         {
           hari: "Senin",
           jam_mulai: "07:00",
-          jam_selesai: "09:00"
-        }
+          jam_selesai: "09:00",
+        },
       ],
-      form_counter: 1
+      form_counter: 1,
     };
   },
   computed: {
-    ...mapState(["currentUser"])
+    ...mapState(["currentUser"]),
   },
   watch: {
     data_kelas: {
@@ -107,8 +107,8 @@ export default {
       handler() {
         this.edit_data_kelas = JSON.parse(JSON.stringify(this.data_kelas));
         this.jadwal = this.edit_data_kelas.jadwal;
-      }
-    }
+      },
+    },
   },
   methods: {
     deleteRow(index) {
@@ -143,7 +143,7 @@ export default {
               guru: firebase.db
                 .collection("users")
                 .doc(this.currentUser.getUid()),
-              jadwal: this.jadwal
+              jadwal: this.jadwal,
             });
         } catch (error) {
           alert("Gagal memperbarui data kelas");
@@ -174,7 +174,7 @@ export default {
         }
       }
       alert("Pembaruan data kelas berhasil");
-    }
-  }
+    },
+  },
 };
 </script>

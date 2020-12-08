@@ -10,12 +10,16 @@
       <v-card color="basil">
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab>Jadwal </v-tab>
+          <v-tab>Pengumuman </v-tab>
           <v-tab>Tugas </v-tab>
           <v-tab>Nilai </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item class="pa-10">
             <ScheduleClassOrtu :jadwal="data_kelas.jadwal" />
+          </v-tab-item>
+          <v-tab-item class="pa-10">
+            <AnnouncementClassOrtu />
           </v-tab-item>
           <v-tab-item class="pa-10">
             <AssignmentClassOrtu />
@@ -35,6 +39,7 @@ import store from "@/store";
 import { mapState } from "vuex";
 
 import AssignmentClassOrtu from "../components/AssignmentClassOrtu";
+import AnnouncementClassOrtu from "../components/AnnouncementClassOrtu";
 import ScoreClassOrtu from "../components/ScoreClassOrtu";
 import ScheduleClassOrtu from "../components/ScheduleClassOrtu";
 
@@ -42,7 +47,7 @@ export default {
   data() {
     return {
       data_kelas: [],
-      tab: null
+      tab: null,
     };
   },
   watch: {
@@ -53,16 +58,17 @@ export default {
           "data_kelas",
           firebase.db.collection("kelas").doc(this.$route.params.id)
         );
-      }
-    }
+      },
+    },
   },
   components: {
+    AnnouncementClassOrtu,
     AssignmentClassOrtu,
     ScoreClassOrtu,
-    ScheduleClassOrtu
+    ScheduleClassOrtu,
   },
   computed: {
-    ...mapState(["currentUser", "currentAnak"])
+    ...mapState(["currentUser", "currentAnak"]),
   },
   async beforeRouteEnter(to, from, next) {
     let doc = await firebase.db
@@ -91,7 +97,7 @@ export default {
     } else {
       next("/ortu");
     }
-  }
+  },
 };
 </script>
 

@@ -33,7 +33,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      daftar_member: []
+      daftar_member: [],
     };
   },
   watch: {
@@ -50,8 +50,8 @@ export default {
               firebase.db.collection("kelas").doc(this.$route.params.id)
             )
         );
-      }
-    }
+      },
+    },
   },
   computed: {
     // filterSelesai() {
@@ -69,18 +69,18 @@ export default {
         {
           text: "Nama Anak",
           align: "start",
-          sortable: true,
-          value: "nama"
+          sortable: false,
+          value: "nama",
         },
         {
           text: "Nomor Induk Sekolah",
           align: "start",
-          sortable: true,
-          value: "nis"
-        }
+          sortable: false,
+          value: "nis",
+        },
       ];
-    }
-  }
+    },
+  },
 };
 </script>
 
