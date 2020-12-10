@@ -123,4 +123,8 @@ a {
   font-size: 30px !important;
   font-weight: bold;
 }
+
+.empty {
+  opacity: 0.7;
+}
 </style>

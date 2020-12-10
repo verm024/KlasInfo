@@ -8,6 +8,9 @@
         >Tambah Kelas</v-btn
       >
     </div>
+    <div v-if="daftar_kelas.length == 0" class="empty mt-10">
+      Anda tidak memiliki kelas
+    </div>
     <div class="text-center">
       <div
         class="mt-10 d-inline-block"
