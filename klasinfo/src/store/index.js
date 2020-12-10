@@ -47,7 +47,11 @@ export default new Vuex.Store({
         } else {
           anak = state.currentAnak.anak;
         }
-        commit("setCurrentAnak", new Anak(anak));
+        if (anak) {
+          commit("setCurrentAnak", new Anak(anak));
+        } else {
+          commit("setCurrentAnak", null);
+        }
       }
     }
   },
