@@ -63,16 +63,16 @@ export default {
   data() {
     return {
       rules: [
-        (value) =>
+        value =>
           !value ||
           value.size < 5000000 ||
-          "Ukuran file tidak boleh melebihi 5 MB!",
+          "Ukuran file tidak boleh melebihi 5 MB!"
       ],
       daftar_pengumuman: [],
       pengumuman_baru: {
         nama: "",
-        deskripsi: "",
-      },
+        deskripsi: ""
+      }
     };
   },
   watch: {
@@ -87,8 +87,8 @@ export default {
             .collection("pengumuman")
             .orderBy("tanggal_ditambahkan", "desc")
         );
-      },
-    },
+      }
+    }
   },
   methods: {
     async tambahPengumuman() {
@@ -100,7 +100,7 @@ export default {
       } else {
         let dataPengumuman = {
           ...this.pengumuman_baru,
-          tanggal_ditambahkan: firebase.timestamp,
+          tanggal_ditambahkan: firebase.timestamp
         };
         try {
           let doc = await firebase.db
@@ -142,12 +142,12 @@ export default {
         "September",
         "Oktober",
         "November",
-        "Desember",
+        "Desember"
       ];
       return (
         hours + ":" + minutes + " - " + date + " " + months[month] + " " + year
       );
-    },
+    }
   },
   computed: {
     headers() {
@@ -156,21 +156,21 @@ export default {
           text: "Nama Pengumuman",
           align: "start",
           sortable: false,
-          value: "nama",
+          value: "nama"
         },
         {
           text: "Deskripsi",
           sortable: false,
-          value: "deskripsi",
+          value: "deskripsi"
         },
         {
           text: "Tanggal Dibuat",
           sortable: true,
-          value: "tanggal_ditambahkan",
-        },
+          value: "tanggal_ditambahkan"
+        }
       ];
-    },
-  },
+    }
+  }
 };
 </script>
 

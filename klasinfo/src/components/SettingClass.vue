@@ -92,14 +92,14 @@ export default {
         {
           hari: "Senin",
           jam_mulai: "07:00",
-          jam_selesai: "09:00",
-        },
+          jam_selesai: "09:00"
+        }
       ],
-      form_counter: 1,
+      form_counter: 1
     };
   },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(["currentUser"])
   },
   watch: {
     data_kelas: {
@@ -107,8 +107,8 @@ export default {
       handler() {
         this.edit_data_kelas = JSON.parse(JSON.stringify(this.data_kelas));
         this.jadwal = this.edit_data_kelas.jadwal;
-      },
-    },
+      }
+    }
   },
   methods: {
     deleteRow(index) {
@@ -143,7 +143,7 @@ export default {
               guru: firebase.db
                 .collection("users")
                 .doc(this.currentUser.getUid()),
-              jadwal: this.jadwal,
+              jadwal: this.jadwal
             });
         } catch (error) {
           alert("Gagal memperbarui data kelas");
@@ -174,7 +174,7 @@ export default {
         }
       }
       alert("Pembaruan data kelas berhasil");
-    },
-  },
+    }
+  }
 };
 </script>

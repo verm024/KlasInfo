@@ -128,20 +128,20 @@ export default {
   data() {
     return {
       rules: [
-        (value) =>
+        value =>
           !value ||
           value.size < 5000000 ||
-          "Ukuran file tidak boleh melebihi 5 MB!",
+          "Ukuran file tidak boleh melebihi 5 MB!"
       ],
       daftar_tugas: [],
       tugas_baru: {
         nama: "",
         deskripsi: "",
-        deadline: new Date().toISOString().substr(0, 10),
+        deadline: new Date().toISOString().substr(0, 10)
       },
       dokumen: "",
       menu: false,
-      min_date: new Date().toISOString().substr(0, 10),
+      min_date: new Date().toISOString().substr(0, 10)
     };
   },
   watch: {
@@ -156,8 +156,8 @@ export default {
             .collection("tugas")
             .orderBy("deadline")
         );
-      },
-    },
+      }
+    }
   },
   methods: {
     async tambahTugas() {
@@ -174,7 +174,7 @@ export default {
         let dataTugas = {
           ...this.tugas_baru,
           deadline: deadline,
-          tanggal_ditambahkan: firebase.timestamp,
+          tanggal_ditambahkan: firebase.timestamp
         };
         try {
           let doc = await firebase.db
@@ -230,7 +230,7 @@ export default {
         "September",
         "Oktober",
         "November",
-        "Desember",
+        "Desember"
       ];
       date = date.getDate();
       if (date < 10) {
@@ -249,7 +249,7 @@ export default {
       } else {
         this.dokumen = files[0];
       }
-    },
+    }
   },
   computed: {
     // filterSelesai() {
@@ -268,26 +268,26 @@ export default {
           text: "Nama Tugas",
           align: "start",
           sortable: false,
-          value: "nama",
+          value: "nama"
         },
         {
           text: "Deskripsi",
           sortable: false,
-          value: "deskripsi",
+          value: "deskripsi"
         },
         {
           text: "Batas Waktu",
           sortable: true,
-          value: "deadline",
+          value: "deadline"
         },
         {
           text: "Berkas",
           sortable: false,
-          value: "controls",
-        },
+          value: "controls"
+        }
       ];
-    },
-  },
+    }
+  }
 };
 </script>
 

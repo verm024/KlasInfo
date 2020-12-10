@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       data_kelas: [],
-      tab: null,
+      tab: null
     };
   },
   watch: {
@@ -62,15 +62,15 @@ export default {
           "data_kelas",
           firebase.db.collection("kelas").doc(this.$route.params.id)
         );
-      },
-    },
+      }
+    }
   },
   components: {
     SettingClass,
     MemberClass,
     AnnouncementClass,
     AssignmentClass,
-    ScoreClass,
+    ScoreClass
   },
   async beforeRouteEnter(to, from, next) {
     let doc = await firebase.db
@@ -87,7 +87,7 @@ export default {
     } else {
       next("/guru");
     }
-  },
+  }
 };
 </script>
 

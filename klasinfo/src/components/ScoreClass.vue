@@ -60,7 +60,7 @@ export default {
       daftar_member: [],
       daftar_tugas: [],
       daftar_nilai: [],
-      current_tugas: "",
+      current_tugas: ""
     };
   },
   watch: {
@@ -77,7 +77,7 @@ export default {
               firebase.db.collection("kelas").doc(this.$route.params.id)
             )
         ).then(() => {
-          this.daftar_member.forEach(async (element) => {
+          this.daftar_member.forEach(async element => {
             try {
               let doc = await firebase.db
                 .collection("join")
@@ -91,13 +91,13 @@ export default {
                 dataNilai = {
                   ...element,
                   id: element.id,
-                  nilai: data.nilai,
+                  nilai: data.nilai
                 };
               } else {
                 dataNilai = {
                   ...element,
                   id: element.id,
-                  nilai: 0,
+                  nilai: 0
                 };
               }
               this.daftar_nilai.push(dataNilai);
@@ -106,7 +106,7 @@ export default {
             }
           });
         });
-      },
+      }
     },
     get_daftar_tugas: {
       immediate: true,
@@ -123,13 +123,13 @@ export default {
             this.current_tugas = this.daftar_tugas[0];
           }
         });
-      },
-    },
+      }
+    }
   },
   methods: {
     async handleChangeTugas() {
       this.daftar_nilai = [];
-      this.daftar_member.forEach(async (element) => {
+      this.daftar_member.forEach(async element => {
         try {
           let doc = await firebase.db
             .collection("join")
@@ -143,13 +143,13 @@ export default {
             dataNilai = {
               ...element,
               id: element.id,
-              nilai: data.nilai,
+              nilai: data.nilai
             };
           } else {
             dataNilai = {
               ...element,
               id: element.id,
-              nilai: 0,
+              nilai: 0
             };
           }
           this.daftar_nilai.push(dataNilai);
@@ -169,7 +169,7 @@ export default {
           .doc(this.$route.params.id)
           .collection("tugas")
           .doc(this.current_tugas.id),
-        tanggal_nilai: firebase.timestamp,
+        tanggal_nilai: firebase.timestamp
       };
       try {
         await firebase.db
@@ -183,7 +183,7 @@ export default {
         alert("Gagal memperbarui nilai");
         console.error(error);
       }
-    },
+    }
   },
   computed: {
     headers() {
@@ -192,23 +192,23 @@ export default {
           text: "Nama Anak",
           align: "start",
           sortable: false,
-          value: "nama",
+          value: "nama"
         },
         {
           text: "Nilai",
           align: "start",
           sortable: true,
-          value: "nilai",
+          value: "nilai"
         },
         {
           text: "Opsi",
           align: "start",
           sortable: false,
-          value: "simpan",
-        },
+          value: "simpan"
+        }
       ];
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       data_kelas: [],
-      tab: null,
+      tab: null
     };
   },
   watch: {
@@ -58,17 +58,17 @@ export default {
           "data_kelas",
           firebase.db.collection("kelas").doc(this.$route.params.id)
         );
-      },
-    },
+      }
+    }
   },
   components: {
     AnnouncementClassOrtu,
     AssignmentClassOrtu,
     ScoreClassOrtu,
-    ScheduleClassOrtu,
+    ScheduleClassOrtu
   },
   computed: {
-    ...mapState(["currentUser", "currentAnak"]),
+    ...mapState(["currentUser", "currentAnak"])
   },
   async beforeRouteEnter(to, from, next) {
     let doc = await firebase.db
@@ -97,7 +97,7 @@ export default {
     } else {
       next("/ortu");
     }
-  },
+  }
 };
 </script>
 

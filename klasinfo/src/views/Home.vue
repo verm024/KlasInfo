@@ -10,28 +10,24 @@
             src="../assets/klasinfoArt1.png"
           />
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col class="d-flex align-center" cols="12" md="6">
           <div>
             <div class="upperTitle">
               <div class="judul" cols="12" sm="4">
-                <span class="blueBoldTitle">Solusi mudah</span> bagi Anda para
-                orang tua. Tak ada lagi
-                <span class="blueTitle">informasi kelas</span> yang terlewat.
+                <span class="blueBoldTitle">Klasinfo</span>
               </div>
               <div class="judul2">
-                Pengawasan kegiatan putra putri Anda di sekolah.
+                Solusi mudah bagi anda para orang tua, tak akan ada lagi
+                informasi kelas yang terlewat.
               </div>
             </div>
             <div
               v-if="!(currentUser && currentUser.getUserProfile())"
               class="lowerTitle"
             >
-              <div class="judulbawah">
-                Daftarkan diri Anda dan putra putri Anda sekarang
-              </div>
-              <router-link to="/login">
-                <v-btn large class="mt-5 white--text" color="#27496d">
-                  MASUK
+              <router-link to="/register">
+                <v-btn large class="mt-5 white--text" color="#3282b8">
+                  Daftar Sekarang
                 </v-btn>
               </router-link>
             </div>
@@ -55,25 +51,25 @@ export default {
 
 <style scoped>
 .home {
-  margin: 50px 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 .judul {
   line-height: 60px;
   font-size: 50px;
+  margin-bottom: 10px;
 }
 .judul2 {
   color: #999999;
   font-size: 20px;
+  margin-bottom: 20px;
 }
 .blueBoldTitle {
-  color: #3282b8;
+  color: #27496d;
   font-weight: bold;
 }
 .blueTitle {
   color: #3282b8;
-}
-.lowerTitle {
-  margin-top: 100px;
 }
 .judulbawah {
   font-size: 40px;

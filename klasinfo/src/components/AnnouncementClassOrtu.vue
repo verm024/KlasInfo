@@ -38,7 +38,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      daftar_pengumuman: [],
+      daftar_pengumuman: []
     };
   },
   watch: {
@@ -53,8 +53,8 @@ export default {
             .collection("pengumuman")
             .orderBy("tanggal_ditambahkan", "desc")
         ).then(() => {});
-      },
-    },
+      }
+    }
   },
   methods: {
     formatDate(timestamp) {
@@ -85,12 +85,12 @@ export default {
         "September",
         "Oktober",
         "November",
-        "Desember",
+        "Desember"
       ];
       return (
         hours + ":" + minutes + " - " + date + " " + months[month] + " " + year
       );
-    },
+    }
   },
   computed: {
     headers() {
@@ -99,21 +99,21 @@ export default {
           text: "Nama Pengumuman",
           align: "start",
           sortable: false,
-          value: "nama",
+          value: "nama"
         },
         {
           text: "Deskripsi",
           sortable: false,
-          value: "deskripsi",
+          value: "deskripsi"
         },
         {
           text: "Tanggal Dibuat",
           sortable: true,
-          value: "tanggal_ditambahkan",
-        },
+          value: "tanggal_ditambahkan"
+        }
       ];
-    },
-  },
+    }
+  }
 };
 </script>
 
